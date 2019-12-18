@@ -174,7 +174,7 @@ body {
                             </td>
                         </tr>
                     </table>
-                </td><!-- http://www.yihaoss.top/H5/check/check.html -->
+                </td><!-- http://www.meimei.yihaoss.top/H5/check/check.html -->
             </tr>
         </table>
         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="fun_hidden" class="left-table03" style="display:none;" >
@@ -390,7 +390,7 @@ body {
                     <table width="75%" border="0" align="right" cellpadding="0" cellspacing="0">
                         <tr>
                             <td width="92%">
-                                <a href="/Toys/getlogisticslist" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;物流管理</a><!-- http://www.yihaoss.top/H5/check/order.html -->
+                                <a href="/Toys/getlogisticslist" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;物流管理</a><!-- http://www.meimei.yihaoss.top/H5/check/order.html -->
                             </td>
                         </tr>
                     </table>
@@ -430,7 +430,7 @@ body {
                     <!--<table width="75%" border="0" align="right" cellpadding="0" cellspacing="0">-->
                         <!--<tr>-->
                             <!--<td width="92%">-->
-                                <!--<a href="http://www.yihaoss.top/H5/check/memberlist.html" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;会员</a>-->
+                                <!--<a href="http://www.meimei.yihaoss.top/H5/check/memberlist.html" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;会员</a>-->
                             <!--</td>-->
                         <!--</tr>-->
                     <!--</table>-->
@@ -458,7 +458,7 @@ body {
                     <table width="75%" border="0" align="right" cellpadding="0" cellspacing="0">
                         <tr>
                             <td width="92%">
-                                <a href="http://www.yihaoss.top/H5/check/inventory.html" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;玩具库存</a>
+                                <a href="http://www.meimei.yihaoss.top/H5/check/inventory.html" target="mainFrame"  class="fun_hidden" >&nbsp;&nbsp;玩具库存</a>
                             </td>
                         </tr>
                     </table>

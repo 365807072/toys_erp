@@ -200,9 +200,9 @@ th{
 				<?php if(($vo["label_state"] == '1') OR ($vo["jump_id"] > '0') ): ?>已打过标签<?php else: ?>未打过标签<?php endif; ?>
 			</td>	
 			<td width ='5%' align = "center">
-				<?php if($vo["is_video"] == '1' ): ?><a href="http://www.yihaoss.top/fenxiang/video.html?user_id=<?php echo ($vo["user_id"]); ?>&img_id=<?php echo ($vo["id"]); ?>" target="_blank">视频</a>
+				<?php if($vo["is_video"] == '1' ): ?><a href="http://www.meimei.yihaoss.top/fenxiang/video.html?user_id=<?php echo ($vo["user_id"]); ?>&img_id=<?php echo ($vo["id"]); ?>" target="_blank">视频</a>
 				<?php else: ?>
-				<a href="http://www.yihaoss.top/fenxiang/postbardetial.html?img_id=<?php echo ($vo["id"]); ?>&user_id=<?php echo ($vo["user_id"]); ?>" target="_blank">帖子</a><?php endif; ?>
+				<a href="http://www.meimei.yihaoss.top/fenxiang/postbardetial.html?img_id=<?php echo ($vo["id"]); ?>&user_id=<?php echo ($vo["user_id"]); ?>" target="_blank">帖子</a><?php endif; ?>
 			</td>
     </tr><?php endforeach; endif; ?>
 </table>
