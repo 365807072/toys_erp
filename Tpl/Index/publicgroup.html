@@ -1,0 +1,122 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--发布话题</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('login_user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var login_user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				select.options.add(new Option(nick_name,login_user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			success: successProcess,
+		});
+		
+ }
+<?php $group_id = intval($_GET['id']);?>
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布话题 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV1/PublicGroupListing"><!-- PublicGroupPost -->
+ 	发布人：
+	<select name="public_name">
+		<option value ="老邹" selected>老邹</option>
+		<option value ="李静" >李静</option>
+		<option value ="朱晓娟" >朱晓娟</option>
+		<option value ="韦杰">韦杰</option>
+		<option value="王春艳">王春艳</option>
+		<option value="王贫">王贫</option>
+		<option value="刘国华">刘国华</option>
+		<option value="项晖">项晖</option>
+		<option value="谭硕">谭硕</option>
+		<option value="杨芳">杨芳</option>
+		<option value="刘瑞">刘瑞</option>
+		<option value="李嘉欣">李嘉欣</option>
+		<option value="樊颖">樊颖</option>
+		<option value="美艳">美艳</option>
+		<option value="李玉清">李玉清</option>
+		<option value="杜志改">杜志改</option>
+		<option value="李永利">李永利</option>
+		<option value="马思敏">马思敏</option>
+		<option value="钟文东">钟文东</option>
+		<option value="荆哲">荆哲</option>
+		<option value="张桐">张桐</option>
+		<option value="刘同艳">刘同艳</option>
+	</select><br/>
+	话题用户:<include file="Index:userloginmanagement" />
+	发布时间:<input type="text" name="start_time" value="<?php echo date('Y-m-d H:i:s'); ?>" >（例：2016-01-24 00:00:00）<br>
+	商家标题：
+        <select name="business_id">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;标题：<textarea name="img_title" value="" cols="100" rows="2"></textarea><br>
+	群列表中点击后跳转状态：
+        <input type="radio" name="is_jump" value="0" checked  >不跳&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_jump" value="1" >跳外链&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_jump" value="2" >跳商家
+        <br>
+	是否最新展示：
+        <input type="radio" name="is_show" value="0" checked  >是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_show" value="1" >否
+        <br>
+	是否视频：
+        <input type="radio" name="is_video" value="0" checked  >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_video" value="1" >是
+        <br>
+	视频URL：<input type="file" name="video" value=""><br>
+	外链URL：<textarea name="post_url" value="" cols="100" rows="2"></textarea><br>
+ 	&nbsp;&nbsp;&nbsp;&nbsp;话题描述:<textarea name="img_desc" value="" cols="100" rows="10"></textarea><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片1：<input type="file" name="img1" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片2：<input type="file" name="img2" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片3：<input type="file" name="img3" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片4：<input type="file" name="img4" value=""><br>
+
+	&nbsp;&nbsp;&nbsp;&nbsp;群id<input type="text" name="group_id" value="<?php echo $group_id ?>" readonly><br>
+	
+	<!-- &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="type" value="2">同时分享到秀秀<br> -->
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

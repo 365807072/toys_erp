@@ -1,0 +1,174 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'>玩具筛选参数编辑</p>
+
+<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysSelectInfo" method="POST">
+    <input type="hidden" value="{$id}" name="id">
+    <p>{$res.business_title}</p>
+    <p style="color:red">&nbsp;&nbsp;&nbsp;注：编辑时，请把要编辑的栏目重新勾选一次</p>
+
+    年龄：&nbsp;&nbsp;&nbsp;&nbsp;（当前年龄范围：<font color="red">{$res.toys_age}</font>）<br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="0-3个月">0-3个月</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="3-6个月">3-6个月</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="6-12个月">6-12个月</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="1-2岁">1-2岁</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="2-3岁">2-3岁</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="3-4岁">3-4岁</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="4-6岁">4-6岁</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_age[]" value="6岁以上">6岁以上</label>
+    <br><br>
+
+    品牌：&nbsp;&nbsp;&nbsp;&nbsp;（当前品牌：<font color="red">{$res.toys_brand}</font>）<br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="小泰克">小泰克</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="费雪">费雪</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="伟易达">伟易达</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="澳贝">澳贝</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="汇乐">汇乐</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="高思维">高思维</label>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="B.toys">B.toys</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="BrightStarts">BrightStarts</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="贝瑞佳">贝瑞佳</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="WinFun">WinFun</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="好孩子">好孩子</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Goodway">Goodway</label>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="乐贝">乐贝</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="贝恩施">贝恩施</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="迪卡侬">迪卡侬</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="瓯玛">瓯玛</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="哈比树">哈比树</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="跳跳鼠">跳跳鼠</label>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="咸蛋超人">咸蛋超人</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="迪士尼">迪士尼</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="凤凰">凤凰</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="骆驼">骆驼</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="小米">小米</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="舞状元">舞状元</label>
+    <label><input type="radio" name="toys_brand" value="奥迪双钻">奥迪双钻</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="宝丽">宝丽</label>&nbsp;&nbsp;&nbsp;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <label><input type="radio" name="toys_brand" value="21st">21st</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Playskool">Playskool</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="爱伊贝丽">爱伊贝丽</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Step2">Step2</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Haenim Toy">Haenim Toy</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Roll Play">Roll Play</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Chicoo智高">Chicoo智高</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="Learning Resources">Learning Resources</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="radio" name="toys_brand" value="其它">其它</label>
+    <br><br>
+
+    能力锻炼：&nbsp;&nbsp;&nbsp;&nbsp;（当前能力锻炼：<font color="red">{$res.toys_ability}</font>）<br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="平衡协调">平衡协调</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="双语早教">双语早教</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="感官认知">感官认知</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="手脑协作">手脑协作</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="情绪安抚">情绪安抚</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="角色扮演">角色扮演</label>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_ability[]" value="场景模拟">场景模拟</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_ability[]" value="体能锻炼">体能锻炼</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_ability[]" value="音乐启蒙">音乐启蒙</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="想象创造">想象创造</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="匍匐爬行">匍匐爬行</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_ability[]" value="行走能力">行走能力</label>-->
+    <!--<br>&nbsp;&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_ability[]" value="智力提升">智力提升</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_ability[]" value="共享协作">共享协作</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_ability[]" value="亲子互动">亲子互动</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="逻辑思维">逻辑思维</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_ability[]" value="抓握力量">抓握力量</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_ability[]" value="记忆练习">记忆练习</label>-->
+    <label><input type="checkbox" name="toys_ability[]" value="理解沟通">理解沟通</label>&nbsp;&nbsp;&nbsp;
+    <!--<br>&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+    <label><input type="checkbox" name="toys_ability[]" value="运动健身">运动健身</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_ability[]" value="户外出行">户外出行</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_ability[]" value="智能变形">智能变形</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_ability[]" value="感官发展">感官发展</label>-->
+    <br><br>
+
+    玩具类型：&nbsp;&nbsp;&nbsp;&nbsp;（当前类型：<font color="red">{$res.toys_type}</font>）<br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="电动/遥控车">电动/遥控车</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="滑梯/秋千">滑梯/秋千</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="围栏/乐园">围栏/乐园</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="蹦床/辣妈健身">蹦床/辣妈健身</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="过家家/乐器">过家家/乐器</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="积木/轨道">积木/轨道</label>&nbsp;&nbsp;&nbsp;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="平衡/脚踏车">平衡/脚踏车</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="强身健体(球类)">强身健体(球类)</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="学步/手推车">学步/手推车</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="绘本">绘本</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="炫酷轨道">炫酷轨道</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_type[]" value="出行推车">出行推车</label>-->
+    <label><input type="checkbox" name="toys_type[]" value="沙水乐园">沙水乐园</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="帐篷/辣妈">帐篷/辣妈</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="学习/动手">学习/动手</label>&nbsp;&nbsp;&nbsp;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="音乐启赋">音乐启赋</label>&nbsp;&nbsp;&nbsp;-->
+
+    <!--<label><input type="checkbox" name="toys_type[]" value="早教益智">早教益智</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_type[]" value="野营套装">野营套装</label>&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_type[]" value="帐篷/钻爬">帐篷/钻爬</label>&nbsp;&nbsp;&nbsp;-->
+
+    <!--<br>&nbsp;&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_type[]" value="声光敲击">声光敲击</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="嗨玩派对">嗨玩派对</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="机器人/变形">机器人/变形</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="骑行/滑板车">骑行/滑板车</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="绕珠/桌游">绕珠/桌游</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="轮滑套装">轮滑套装</label>&nbsp;&nbsp;&nbsp;
+    <!--<br>&nbsp;&nbsp;&nbsp;&nbsp;-->
+    <!--<label><input type="checkbox" name="toys_type[]" value="婴儿专属">婴儿专属</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="蹦床/蹦跳椅">蹦床/蹦跳椅</label>&nbsp;&nbsp;&nbsp;
+    <!--<label><input type="checkbox" name="toys_type[]" value="机器人">机器人</label>&nbsp;&nbsp;&nbsp;-->
+    <label><input type="checkbox" name="toys_type[]" value="摇马/跷跷板">摇马/跷跷板</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="球类运动">球类运动</label>&nbsp;&nbsp;&nbsp;
+    <label><input type="checkbox" name="toys_type[]" value="其它">其它</label>&nbsp;&nbsp;&nbsp;
+    <br><br>
+
+
+    <input type="submit" value="确定">
+</form>
+
+
+</body>
+</html>

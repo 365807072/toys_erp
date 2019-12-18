@@ -1,0 +1,466 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--发布新版本商家</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type = "text/javascript">
+function province(obj){        
+        var province=obj.value;
+        if(province==0){
+            return;
+        }
+        var select = document.getElementById('city_id');
+        
+        var successProcess=function(data){
+            var selectOptions = select.options;  
+            var optionLength = selectOptions.length; 
+            var dataArray = eval(data);
+             for(var i = 0; i<dataArray.length;i++){
+                var user_id = dataArray[i]['city_id'];
+                var nick_name = dataArray[i]['name'];
+                select.options.add(new Option(nick_name,user_id));
+            }
+            
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "http://checkpic.meimei.yihaoss.top/Index/getCity?pid="+province,
+            success: successProcess,
+        });
+        
+ }
+
+function city(obj){
+        var city=obj.value;
+        if(city==0){
+            return;
+        }
+        var province = document.getElementById('province_id');
+        var select = document.getElementById('county_id');
+        
+        var successProcess=function(data){
+            var selectOptions = select.options;  
+            var optionLength = selectOptions.length;  
+          for(var i=0;i <optionLength;i++)  
+            {  
+                select.removeChild(selectOptions[0]);  
+            }  
+            var dataArray = eval(data);
+             for(var i = 0; i<dataArray.length;i++){
+                var user_id = dataArray[i]['county_id'];
+                var nick_name = dataArray[i]['name'];
+                select.options.add(new Option(nick_name,user_id));
+            }
+        }
+        $.ajax({
+            type: 'GET',
+            url: "http://checkpic.meimei.yihaoss.top/Index/getCounty?pid="+city+"&province="+province.value,
+            success: successProcess,
+        });
+        
+ }
+
+ function county(obj){
+        var county=obj.value;
+        if(county==0){
+            return;
+        }
+        var select = document.getElementById('street_id');
+        var province = document.getElementById('province_id');
+        var city = document.getElementById('city_id');
+        
+        var successProcess=function(data){
+            var selectOptions = select.options;  
+            var optionLength = selectOptions.length;  
+            for(var i=0;i <optionLength;i++)  
+            {  
+                select.removeChild(selectOptions[0]);  
+            }  
+            var dataArray = eval(data);
+             for(var i = 0; i<dataArray.length;i++){
+                var user_id = dataArray[i]['street_id'];
+                var nick_name = dataArray[i]['name'];
+                select.options.add(new Option(nick_name,user_id));
+            }
+        }
+        $.ajax({
+            type: 'GET',
+            url: "http://checkpic.meimei.yihaoss.top/Index/getStreet?pid="+county+"&province="+province.value+"&city="+city.value,
+            success: successProcess,
+        });
+        
+ }
+function region(obj){
+        var county=obj.value;
+        if(county==0){
+            return;
+        }
+        var select = document.getElementById('region_id');
+        
+        var successProcess=function(data){
+            var selectOptions = select.options;  
+            var optionLength = selectOptions.length;  
+            for(var i=0;i <optionLength;i++)  
+            {  
+                select.removeChild(selectOptions[0]);  
+            }  
+            var dataArray = eval(data);
+             for(var i = 0; i<dataArray.length;i++){
+                var user_id = dataArray[i]['id'];
+                var nick_name = dataArray[i]['city_name'];
+                select.options.add(new Option(nick_name,user_id));
+            }
+        }
+        $.ajax({
+            type: 'GET',
+            url: "http://checkpic.meimei.yihaoss.top/Index/getRegion?id="+county,
+            success: successProcess,
+        });
+        
+ }
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布新版本商家 </p>
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST' action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/AddPostBusiness" >
+    <!-- &nbsp;&nbsp;&nbsp;&nbsp;商家类型：
+        <input type="radio" name="state" value="0" <if condition="$businessList.state neq 2 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="state" value="2" <if condition="$businessList.state eq 2 "> checked </if>>虚拟
+        <br> -->
+    &nbsp;&nbsp;&nbsp;&nbsp;腾讯经度：<input type="text" name="tencent_log" value="{$businessList.tencent_log}">如：116.391918<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;腾讯纬度：<input type="text" name="tencent_lat"  value="{$businessList.tencent_lat}">如：39.850616<br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;百度经度：<input type="text" name="log" value="{$businessList.log}">如：116.391918<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;百度纬度：<input type="text" name="lat"  value="{$businessList.lat}">如：39.850616<br>
+    
+        &nbsp;&nbsp;&nbsp;&nbsp;商家邮箱：
+        <input type="text" name="seller_email" value="{$businessList.seller_email}" ><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;商家手机号：
+        <input type="text" name="seller_mobile" value="{$businessList.seller_mobile}" ><br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;签单人：<input type="text" name="sign_name" value="{$businessList.sign_name}" ><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;合同编号：<textarea name="contract_number" value="" cols="100" rows="2">{$businessList.contract_number}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;选择分类：
+        <input type="checkbox" name="play_category"  value="1" <if condition="$businessList.play_category eq 1 "> checked</if> > 亲子游乐
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="checkbox" name="hobby_category"  value="1" <if condition="$businessList.hobby_category eq 1 "> checked</if>> 兴趣学习
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="checkbox" name="intelligence_category"  value="1" <if condition="$businessList.intelligence_category eq 1 "> checked</if> > 智力提高<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;城市筛选：<select name="region_county"  style=" width:auto;" id='region_county' onchange="region(this);">
+            <option value="0">一级</option>
+            <notempty name="regionA">
+                <foreach name="regionA" item="vo" >
+                <option value="{$vo.id}" <if condition="$businessList.region_county eq $vo.id "> selected</if>>{$vo.city_name}</option>
+                </foreach>
+            </notempty>
+        </select>
+         <select name="region_id" id="region_id" style=" width:auto;">
+            <option value="0">二级</option>
+            <notempty name="regionB">
+                <foreach name="regionB" item="vo" >
+                <option value="{$vo.id}" <if condition="$businessList.region_id eq $vo.id "> selected</if>>{$vo.city_name}</option>
+                </foreach>
+            </notempty>
+            
+        </select>
+        <br>
+	    &nbsp;&nbsp;&nbsp;&nbsp;商家标题：<textarea name="title" value="" cols="100" rows="2">{$businessList.business_title}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;副标题：<textarea name="subtitle" value="" cols="100" rows="2">{$businessList.subtitle}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;工作时间：<textarea name="work_time" value="" cols="100" rows="2">{$businessList.work_time}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;是否推荐：
+        <input type="radio" name="is_recommend" value="0" <if condition="$businessList.is_recommend neq 1 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_recommend" value="1" <if condition="$businessList.is_recommend eq 1 "> checked </if>>是
+        <br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;推荐套餐内容:<textarea name="recommended_package" value="" cols="100" rows="2">{$businessList.recommended_package}</textarea><br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;商家描述:<textarea name="business_des" value="" cols="100" rows="10">{$businessList.business_des}</textarea><br>
+         <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;商家封面：<input type="file" name="cover" value="">
+            <notempty name="businessList.cover"> 
+                <img  src ="{$businessList.cover}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;商家描述图片二：<input type="file" name="business_pic2" value=""> 
+            <notempty name="businessList.business_pic1"> 
+                <img  src ="{$businessList.business_pic1}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;商家描述图片三：<input type="file" name="business_pic3" value=""> 
+            <notempty name="businessList.business_pic2"> 
+                <img  src ="{$businessList.business_pic2}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;商家描述图片四：<input type="file" name="business_pic4" value=""> 
+            <notempty name="businessList.business_pic3"> 
+                <img  src ="{$businessList.business_pic3}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;商家描述图片五：<input type="file" name="business_pic5" value=""> 
+            <notempty name="businessList.business_pic4"> 
+                <img  src ="{$businessList.business_pic4}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;活动开始时间：<textarea name="business_start_time" value="" cols="100" rows="1">{$businessList.business_start_time}</textarea><br>&nbsp;&nbsp;&nbsp;&nbsp; 活动结束时间：<textarea name="business_end_time" value="" cols="100" rows="1">{$businessList.business_end_time}</textarea><br>  -->
+
+        &nbsp;&nbsp;&nbsp;&nbsp;联系方式：<input type="text" name="contact" value="{$businessList.business_contact}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;位置：
+        <select name="province_id" id="province_id" style=" width:auto;" onchange="province(this);" >
+            <option value="0">请选择省</option>
+            <foreach name="cityList" item="vo" >
+                <option value="{$vo.province_id}" <if condition="$businessList.province eq $vo.province_id ">  selected</if>>{$vo.name}</option>
+            </foreach>
+        </select>
+        <select name="city_id" id="city_id" style=" width:auto;" onchange="city(this);" >
+            <option value="0">请选择市</option>
+            <notempty name="cityInfo">
+                <foreach name="cityInfo" item="vo" >
+                <option value="{$vo.city_id}" <if condition="$businessList.city eq $vo.city_id "> selected</if>>{$vo.name}</option>
+                </foreach>
+            </notempty>
+            
+        </select>
+        <select name="county_id" id="county_id" style=" width:auto;"  onchange="county(this);">
+            <option value="0">请选择县</option>
+            <notempty name="countyList">
+                <foreach name="countyList" item="vo" >
+                <option value="{$vo.county_id}" <if condition="$businessList.county eq $vo.county_id "> selected</if>>{$vo.name}</option>
+                </foreach>
+            </notempty>
+        </select>
+        <select name="street_id" id="street_id" style=" width:auto;" >
+            <option value="0">请选择乡镇</option>
+            <notempty name="streetList">
+                <foreach name="streetList" item="vo" >
+                <option value="{$vo.street_id}" <if condition="$businessList.street eq $vo.street_id "> selected</if>>{$vo.name}</option>
+                </foreach>
+            </notempty>
+        </select><br>
+        <textarea name="business_location" value="" cols="100" rows="1" style="margin-left:70px;">{$businessList.business_location}</textarea>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一合同价格：<input type="text" name="package_contract_price1" value="{$businessList.package_contract_price1}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一原价：<input type="text" name="business_market_price1" value="{$businessList.business_market_price1}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一秀秀价：<input type="text" name="business_babyshow_price1" value="{$businessList.business_babyshow_price1}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state1" value="1" <if condition="$businessList.business_free_state1 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state1" value="2" <if condition="$businessList.business_free_state1 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一支付方式：
+        <input type="radio" name="business_payment1" value="0" <if condition="$businessList.business_payment1 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment1" value="1" <if condition="$businessList.business_payment1 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment1" value="2" <if condition="$businessList.business_payment1 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一项目：<textarea name="business_package_des1" value="" cols="100" rows="2">{$businessList.business_package_des1}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一活动次数和时间：
+        <textarea name="business_activity_num1" value="" cols="100" rows="2">{$businessList.business_activity_num1}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐一活动有效期：
+        <textarea name="business_activity_time1" value="" cols="100" rows="1">{$businessList.business_activity_time1}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二合同价格：<input type="text" name="package_contract_price2" value="{$businessList.package_contract_price2}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二原价：<input type="text" name="business_market_price2" value="{$businessList.business_market_price2}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二秀秀价：<input type="text" name="business_babyshow_price2" value="{$businessList.business_babyshow_price2}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state2" value="1" <if condition="$businessList.business_free_state2 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state2" value="2" <if condition="$businessList.business_free_state2 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二支付方式：
+        <input type="radio" name="business_payment2" value="0" <if condition="$businessList.business_payment2 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment2" value="1" <if condition="$businessList.business_payment2 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment2" value="2" <if condition="$businessList.business_payment2 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二项目：<textarea name="business_package_des2" value="" cols="100" rows="2">{$businessList.business_package_des2}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二活动次数和时间：
+        <textarea name="business_activity_num2" value="" cols="100" rows="2">{$businessList.business_activity_num2}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐二活动有效期：<textarea name="business_activity_time2" value="" cols="100" rows="1">{$businessList.business_activity_time2}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三合同价格：<input type="text" name="package_contract_price3" value="{$businessList.package_contract_price3}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三原价：<input type="text" name="business_market_price3" value="{$businessList.business_market_price3}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三秀秀价：<input type="text" name="business_babyshow_price3" value="{$businessList.business_babyshow_price3}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state3" value="1" <if condition="$businessList.business_free_state3 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state3" value="2" <if condition="$businessList.business_free_state3 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三支付方式：
+        <input type="radio" name="business_payment3" value="0" <if condition="$businessList.business_payment3 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment3" value="1" <if condition="$businessList.business_payment3 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment3" value="2" <if condition="$businessList.business_payment3 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三项目：<textarea name="business_package_des3" value="" cols="100" rows="2">{$businessList.business_package_des3}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三活动次数和时间：
+        <textarea name="business_activity_num3" value="" cols="100" rows="2">{$businessList.business_activity_num3}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐三活动有效期：<textarea name="business_activity_time3" value="" cols="100" rows="1">{$businessList.business_activity_time3}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四合同价格：<input type="text" name="package_contract_price4" value="{$businessList.package_contract_price4}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四原价：<input type="text" name="business_market_price4" value="{$businessList.business_market_price4}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四秀秀价：<input type="text" name="business_babyshow_price4" value="{$businessList.business_babyshow_price4}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state4" value="1" <if condition="$businessList.business_free_state4 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state4" value="2" <if condition="$businessList.business_free_state4 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四支付方式：
+        <input type="radio" name="business_payment4" value="0" <if condition="$businessList.business_payment4 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment4" value="1" <if condition="$businessList.business_payment4 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment4" value="2" <if condition="$businessList.business_payment4 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四项目：<textarea name="business_package_des4" value="" cols="100" rows="2">{$businessList.business_package_des4}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四活动次数和时间：
+        <textarea name="business_activity_num4" value="" cols="100" rows="2">{$businessList.business_activity_num4}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐四活动有效期：<textarea name="business_activity_time4" value="" cols="100" rows="1">{$businessList.business_activity_time4}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五合同价格：<input type="text" name="package_contract_price5" value="{$businessList.package_contract_price5}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五原价：<input type="text" name="business_market_price5" value="{$businessList.business_market_price5}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五秀秀价：<input type="text" name="business_babyshow_price5" value="{$businessList.business_babyshow_price5}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state5" value="1" <if condition="$businessList.business_free_state5 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state5" value="2" <if condition="$businessList.business_free_state5 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五支付方式：
+        <input type="radio" name="business_payment5" value="0" <if condition="$businessList.business_payment5 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment5" value="1" <if condition="$businessList.business_payment5 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment5" value="2" <if condition="$businessList.business_payment5 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五项目：<textarea name="business_package_des5" value="" cols="100" rows="2">{$businessList.business_package_des5}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五活动次数和时间：
+        <textarea name="business_activity_num5" value="" cols="100" rows="2">{$businessList.business_activity_num5}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐五活动有效期：<textarea name="business_activity_time5" value="" cols="100" rows="1">{$businessList.business_activity_time5}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六合同价格：<input type="text" name="package_contract_price6" value="{$businessList.package_contract_price6}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六原价：<input type="text" name="business_market_price6" value="{$businessList.business_market_price6}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六秀秀价：<input type="text" name="business_babyshow_price6" value="{$businessList.business_babyshow_price6}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state6" value="1" <if condition="$businessList.business_free_state6 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state6" value="2" <if condition="$businessList.business_free_state6 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六支付方式：
+        <input type="radio" name="business_payment6" value="0" <if condition="$businessList.business_payment6 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment6" value="1" <if condition="$businessList.business_payment6 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment6" value="2" <if condition="$businessList.business_payment6 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六项目：<textarea name="business_package_des6" value="" cols="100" rows="2">{$businessList.business_package_des6}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六活动次数和时间：
+        <textarea name="business_activity_num6" value="" cols="100" rows="2">{$businessList.business_activity_num6}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐六活动有效期：<textarea name="business_activity_time6" value="" cols="100" rows="1">{$businessList.business_activity_time6}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七合同价格：<input type="text" name="package_contract_price7" value="{$businessList.package_contract_price7}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七原价：<input type="text" name="business_market_price7" value="{$businessList.business_market_price7}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七秀秀价：<input type="text" name="business_babyshow_price7" value="{$businessList.business_babyshow_price7}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state7" value="1" <if condition="$businessList.business_free_state7 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state7" value="2" <if condition="$businessList.business_free_state7 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七支付方式：
+        <input type="radio" name="business_payment7" value="0" <if condition="$businessList.business_payment7 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment7" value="1" <if condition="$businessList.business_payment7 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment7" value="2" <if condition="$businessList.business_payment7 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七项目：<textarea name="business_package_des7" value="" cols="100" rows="2">{$businessList.business_package_des7}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七活动次数和时间：
+        <textarea name="business_activity_num7" value="" cols="100" rows="2">{$businessList.business_activity_num7}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐七活动有效期：<textarea name="business_activity_time7" value="" cols="100" rows="1">{$businessList.business_activity_time7}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八合同价格：<input type="text" name="package_contract_price8" value="{$businessList.package_contract_price8}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八原价：<input type="text" name="business_market_price8" value="{$businessList.business_market_price8}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八秀秀价：<input type="text" name="business_babyshow_price8" value="{$businessList.business_babyshow_price8}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state8" value="1" <if condition="$businessList.business_free_state8 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state8" value="2" <if condition="$businessList.business_free_state8 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八支付方式：
+        <input type="radio" name="business_payment8" value="0" <if condition="$businessList.business_payment8 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment8" value="1" <if condition="$businessList.business_payment8 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment8" value="2" <if condition="$businessList.business_payment8 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八项目：<textarea name="business_package_des8" value="" cols="100" rows="2">{$businessList.business_package_des8}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八活动次数和时间：
+        <textarea name="business_activity_num8" value="" cols="100" rows="2">{$businessList.business_activity_num8}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐八活动有效期：<textarea name="business_activity_time8" value="" cols="100" rows="1">{$businessList.business_activity_time8}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九合同价格：<input type="text" name="package_contract_price9" value="{$businessList.package_contract_price9}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九原价：<input type="text" name="business_market_price9" value="{$businessList.business_market_price9}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九秀秀价：<input type="text" name="business_babyshow_price9" value="{$businessList.business_babyshow_price9}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state9" value="1" <if condition="$businessList.business_free_state9 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state9" value="2" <if condition="$businessList.business_free_state9 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九支付方式：
+        <input type="radio" name="business_payment9" value="0" <if condition="$businessList.business_payment9 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment9" value="1" <if condition="$businessList.business_payment9 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment9" value="2" <if condition="$businessList.business_payment9 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九项目：<textarea name="business_package_des9" value="" cols="100" rows="2">{$businessList.business_package_des9}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九活动次数和时间：
+        <textarea name="business_activity_num9" value="" cols="100" rows="2">{$businessList.business_activity_num9}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐九活动有效期：<textarea name="business_activity_time9" value="" cols="100" rows="1">{$businessList.business_activity_time9}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十合同价格：<input type="text" name="package_contract_price10" value="{$businessList.package_contract_price10}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十原价：<input type="text" name="business_market_price10" value="{$businessList.business_market_price10}">
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十秀秀价：<input type="text" name="business_babyshow_price10" value="{$businessList.business_babyshow_price10}"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十是否免费（首次）体验（试听）：
+        <input type="radio" name="business_free_state10" value="1" <if condition="$businessList.business_free_state10 neq 2 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_free_state10" value="2" <if condition="$businessList.business_free_state10 eq 2 "> checked </if>>是
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十支付方式：
+        <input type="radio" name="business_payment10" value="0" <if condition="$businessList.business_payment10 eq 0 "> checked </if> >线上和上门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment10" value="1" <if condition="$businessList.business_payment10 eq 1 "> checked </if> >线上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="business_payment10" value="2" <if condition="$businessList.business_payment10 eq 2 "> checked </if>>上门
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十项目：<textarea name="business_package_des10" value="" cols="100" rows="2">{$businessList.business_package_des10}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十活动次数和时间：
+        <textarea name="business_activity_num10" value="" cols="100" rows="2">{$businessList.business_activity_num10}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;套餐十活动有效期：<textarea name="business_activity_time10" value="" cols="100" rows="1">{$businessList.business_activity_time10}</textarea>
+        <div style="width:1300px;line-height:1px;border-bottom:1px dashed #111;margin:5px 0;"></div>
+
+	    &nbsp;&nbsp;&nbsp;&nbsp;小孩喜欢程度【也称综合评价】：<input type="radio" name="like_level" value="5" <if condition="($businessList.like_level egt '4.5') or ($businessList.like_level lt '1')"> checked="checked"  </if> ><img src="http://api.meimei.yihaoss.top/static3/star/five_stars.png">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="4.5" <if condition="$businessList.like_level eq '4.5'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/four_stars_half.png">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="4" <if condition="$businessList.like_level eq '4'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/four_stars.png">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="3.5" <if condition="$businessList.like_level eq '3.5'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/three_stars_half.png"><br>
+							<input type="radio" name="like_level" value="3" style="margin-left:120px;" <if condition="$businessList.like_level eq '3'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/three_stars.png">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="2.5" <if condition="$businessList.like_level eq '2.5'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/two_stars_half.png">
+							&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="2" <if condition="$businessList.like_level eq '2'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/two_stars.png">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="1.5" <if condition="$businessList.like_level eq '1.5'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/star_half.png">
+							&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="like_level" value="1" <if condition="$businessList.like_level eq '1'"> checked="checked" </if>><img src="http://api.meimei.yihaoss.top/static3/star/star.png"><br><br>
+
+	
+<input type="hidden" name="id" value="{$businessList.id}">
+<input type="hidden" name="business_type" value="{$business_type}">
+
+ <div id="container" style="display: none;"></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+
+
+
+<br/>
+</body>
+</html>

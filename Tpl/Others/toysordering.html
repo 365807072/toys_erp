@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+        $('#excel_info').click(function(){ 
+            $(".excel_state").val("1"); 
+            $("#search_form").submit();
+        });
+    })
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 送货中</p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Others/toysordering" >    
+        用户ID：<input type="text" name="user_id" value="{$user_id}">
+        配送员ID：<select name="postman_id">
+                        <option value="0">请选择</option>
+                        <foreach name="res_postman" item="one">
+                            <option value="{$one.id}" <if condition="$search_postman_id eq $one.id "> selected</if> >{$one.user_name}</option>
+                        </foreach>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        地址：<input type="text" name="search_address" value="{$search_address}">
+        <input type="hidden" name="excel_state" value="" class="excel_state">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+<P><a id="excel_info" style="cursor:pointer;" >导出数据并生成excel</a></P>
+
+
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "5%" align = "center">用户Id</th>
+		<th width = "10%" align = "center">配送信息</th>
+		<th width = "10%" align = "center">待配送</th>
+        <th width = "10" align = "center">待取回</th>
+        <th width = "10" align = "center">备注</th>
+        <th width = "10" align = "center">配送员</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='5%' align = "center">{$vo.user_id}</td>
+            <td width ='10%' align = "center">{$vo.user_info}</td>
+			<td width ='10%' >{$vo.send_toys}</td>
+            <td width ='10%' >{$vo.pick_toys}</td>
+            <td width ='10%' align = "center">{$vo.remark}<br/>
+                <a href="http://checkpic.meimei.yihaoss.top/Others/toysremarkup?user_id={$vo.user_id}" target="_black" >添加备注</a>
+            </td>
+            <td width ='10%' align = "center">
+            <if condition="$vo.postman_id GT 0 "> 
+                {$vo.postman}<br/>
+                <a href="http://checkpic.meimei.yihaoss.top/Others/cacelorder?user_id={$vo.user_id}&postman_id={$vo.postman_id}" target="_black" >取消派单</a>
+                <else/>
+                <form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/BackPubOrderCome" method ='POST' onsubmit="return sumbit_sure()" >
+                    <input type="hidden" name="user_id" value="{$vo.user_id}">
+                    <select name="postman_id">
+                        <option value="0">请选择</option>
+                        <foreach name="res_postman" item="one">
+                            <option value="{$one.id}">{$one.user_name}</option>
+                        </foreach>
+                    </select>
+                    <input type="submit" value="派单">
+                </form>
+            </if> 
+
+            
+            </td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

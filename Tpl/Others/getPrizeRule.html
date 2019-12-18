@@ -1,0 +1,149 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{:C('TITLE')}</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<!-- 审核日志列表 -->
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+function modify(obj,imgid){
+			
+			var divs = document.getElementById("imageDiv_" + imgid);
+			var inputs = divs.getElementsByTagName('input');
+			var is_recommend = obj.value;
+			//alert(oper);false;
+			var arrayObj = new Array();
+			for (var i = 0; i < inputs.length; i++) {
+			
+				if (inputs[i].checked == true) { //是否被选中
+					//记录id
+					var imageIdStr = inputs[i].id;
+					var id = imageIdStr.substring(6);//取 image_后面的字符
+					arrayObj.push(id);
+				}
+				
+			}
+			if (arrayObj.length == 0) {
+				alert("您未选中任何图片!");
+				return;
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "http://checkpic.meimei.yihaoss.top/Others/operator_post",
+				//data:"imgid="+arrayObj,
+				data:{"imgid":arrayObj,"is_recommend":is_recommend}, 
+				//data:"{imgid:'" + arrayObj + "',oprator:'" + oprator + "'}",
+				dataType: "json",
+				success:function(data){
+				
+					var  jsonData= eval(data);
+					if(jsonData.flag){
+		
+					}else{
+						alert(jsonData.reMsg);
+					
+					}
+				}
+			});
+		}
+	
+	 
+	 function hot_state(obj,imgid){
+			
+			var divs = document.getElementById("imageDiv_" + imgid);
+			var inputs = divs.getElementsByTagName('input');
+			//alert(oper);false;
+			var arrayObj = new Array();
+			for (var i = 0; i < inputs.length; i++) {
+			
+				if (inputs[i].checked == true) { //是否被选中
+					//记录id
+					var imageIdStr = inputs[i].id;
+					var id = imageIdStr.substring(6);//取 image_后面的字符
+					arrayObj.push(id);
+				}
+				
+			}
+			if (arrayObj.length == 0) {
+				alert("您未选中任何图片!");
+				return;
+			}
+			$.ajax({
+				type: "POST",
+				url: "http://checkpic.meimei.yihaoss.top/Others/operator_hot",
+				//data:{"imgid":arrayObj}, 
+				data:{"imgid":imgid},
+				dataType: "json",
+				success:function(data){
+				
+					var  jsonData= eval(data);
+					if(jsonData.flag){
+		
+					}else{
+						alert(jsonData.reMsg);
+					
+					}
+				}
+			});
+		}
+		$(function () {
+	        $(".ui_timepicker").datetimepicker({
+	            
+	            showSecond: true,
+	            timeFormat: 'hh:mm:ss',
+	            stepHour: 1,
+	            stepMinute: 1,
+	            stepSecond: 1
+	        })
+	    })
+		
+</script>
+
+
+<style>
+th{
+	font-size:15px;
+}
+
+
+</style>
+
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 奖品规则列表   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="editprizerule">添加奖品</a></p>
+<div class="check_list">{$page}</div>
+<table width = "100%" cellpadding = '3' cellspacing = '3'>
+	<tr height = "10"  >
+		<th width = "5%" align = "center">ID</th>		
+		<th width = "20%" align = "center">描述</th>
+		<th width = "5%" align = "center">编辑</th>
+		<th width = "5%" align = "center">删除</th>
+    </tr>
+    <foreach name="res" item="vo" >
+    <tr>
+        <td width ='5%' align = "cenSter">{$vo.id}</td>
+        <td width ='20%' align = "center">{$vo.description}</td>			
+		<td width ='5%' align = "center">
+			<a href="editprizerule?id={$vo.id}" target="_blank">编辑</a>
+		</td>
+		<td width ='5%' height='200' align = "center">
+			<a href="http://checkpic.meimei.yihaoss.top/Others/operator_prizerulestate?imgid={$vo.id}">删除</a>
+		</td>
+    </tr>
+    
+    </foreach>
+</table>
+<br/>
+<div class="check_list">{$page}</div>
+
+</body>
+</html>

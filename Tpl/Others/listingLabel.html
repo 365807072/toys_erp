@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>热点【和秀秀合并后】--标签</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 热点【和秀秀合并后】--标签 </p>
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST' action="http://checkpic.meimei.yihaoss.top/Others/editLabel" > 
+    &nbsp;&nbsp;&nbsp;&nbsp;描述：{$img_description} <br>     
+        &nbsp;&nbsp;&nbsp;&nbsp;标签：
+        <!-- <volist name="labelListing" id="vo"  >                
+            <input type="checkbox" name="label[]"
+                <notempty name="labelInfo" > 
+                    <volist name="labelInfo" id="data">
+                        <if condition="$vo.label_id eq $data "> checked</if > 
+                    </volist> 
+                </notempty>
+                value="{$vo.label_id}"  >
+            {$vo.label_name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                
+        </volist> -->
+        <volist name="top_label" id="vo"  >   
+            <div style="margin-left:30px;">
+                <input type="checkbox" name="label[]"
+                <notempty name="labelInfo" > 
+                    <volist name="labelInfo" id="data">
+                        <if condition="$vo.label_id eq $data "> checked</if > 
+                    </volist> 
+                </notempty>
+                value="{$vo.label_id}"  >{$vo.label_name}
+            </div> 
+             <notempty name="vo['category']" >
+                <div style="margin-left:80px;">
+                    <volist name="vo['category']" id="cate"  >                     
+                        <input type="checkbox" name="label[]"
+                        <notempty name="labelInfo" > 
+                            <volist name="labelInfo" id="data">
+                                <if condition="$cate.label_id eq $data "> checked</if > 
+                            </volist> 
+                        </notempty>
+                        value="{$cate.label_id}"  >{$cate.label_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </volist>
+                 </div>
+             </notempty>
+        </volist>
+        <br>
+        <input type="hidden" name="id" value="{$id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

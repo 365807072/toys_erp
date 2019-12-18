@@ -1,0 +1,91 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 配送员上传赔付订单列表 &nbsp;&nbsp;&nbsp;&nbsp;<a href="getpaymentlist">赔付订单列表</a></p>
+<!--<a target="_blank" href="pubstopcard">添加停卡</a>-->
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getpaymentlistorder" >
+        用户ID：<input type="text" name="search_user_id" value="{$search_user_id}">
+        赔付状态：<select name="search_status">
+                    <!--<option value="0">请选择</option>-->
+                    <option value="1"<if condition="$search_status eq 1 "> selected</if>>未解决</option>
+                    <option value="2"<if condition="$search_status eq 2 "> selected</if>>已解决</option>
+                  </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "10%" align = "center">用户信息</th>
+		<th width = "10%" align = "center">玩具标题</th>
+        <th width = "10%" align = "center">赔偿备注</th>
+        <th width = "10%" align = "center">小编入库备注</th>
+        <th width = "10%" align = "center">仓库入库备注</th>
+        <th width = "10%" align = "center">更新时间</th>
+        <th width = "10%" align = "center">送到图片</th>
+        <th width = "10%" align = "center">取回图片</th>
+        <th width = "5" align = "center">操作</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='10%' align = "center">{$vo.user_info}</td>
+            <td width ='10%' align = "center">{$vo.business_title}</td>
+            <td width ='10%' align = "center">{$vo.stock_remark}</td>
+            <td width ='10%' align = "center">{$vo.order_remark}</td>
+            <td width ='10%' align = "center">{$vo.remark}</td>
+            <td width ='10%' align = "center">{$vo.post_create_time}</td>
+            <td width ='300px'>
+                <div style="width: 300px;">
+                    <foreach name="vo.admin_load_img_arr" item="vv">
+                        <img src="https://api.meimei.yihaoss.top/{$vv}" style="width:150px;height:150px;" alt="">
+                    </foreach>
+                </div>
+            </td>
+            <td width ='300px'>
+                <div style="width: 300px;">
+                    <foreach name="vo.user_load_img_arr" item="vv">
+                        <img src="https://api.meimei.yihaoss.top/{$vv}" style="width:150px;height:150px;" alt="">
+                    </foreach>
+                </div>
+            </td>
+            <td width ='10%' align = "center">
+                <form method ='POST' action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/EditPaymentStatusOrder" onsubmit="return confirm('确定更改吗？')">
+                    <input type="hidden" name="order_id" value="{$vo.order_id}">
+                    <select name="status">
+                    <option value="1"<if condition="$vo.is_question eq 1 "> selected</if>>未解决</option>
+                    <option value="2"<if condition="$vo.is_question eq 2 "> selected</if>>已解决</option>
+                </select>
+                    <input type='submit' value='更改'><br>
+                </form>
+                <br><br><a href="toyspayment/order_id/{$vo.order_id}">生成赔付订单</a>
+            </td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

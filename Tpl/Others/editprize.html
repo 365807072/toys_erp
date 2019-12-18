@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>编辑奖品</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑奖品 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editToysPrize">
+		一级奖品标题：<textarea name="prize_title1" value="" cols="100" rows="2">{$res.prize_title1}</textarea><br>
+		二级奖品标题：<textarea name="prize_title2" value="" cols="100" rows="2">{$res.prize_title2}</textarea><br>
+		<if condition="$res.is_card eq 1 "><!-- 卡 -->
+			卡状态：<input type="radio" name="card_status" value="0"  <if condition="$res.card_status eq 0 ">checked</if> >加一张周卡
+        	<input type="radio" name="card_status" value="1" <if condition="$res.card_status eq 1 ">checked</if> >延长天数
+        	<input type="radio" name="card_status" value="2"  <if condition="$res.card_status eq 2 ">checked</if> >延长次数
+        	<input type="radio" name="card_status" value="3"  <if condition="$res.card_status eq 3 ">checked</if> >延长天数和次数
+        	<br>
+        	延长天数:<input type="text" name="card_day" value="{$res.card_day}" ><br>
+        	延长次数:<input type="text" name="card_service" value="{$res.card_service}" ><br>
+        	<input type="hidden" name="description" value="{$res.description}" >
+        	<else/>	
+        	描述：<textarea name="description" value="" cols="100" rows="2">{$res.description}</textarea><br>		
+		</if>
+		<div style="width:1200px;height:150px;border-bottom:1px dashed #111;">
+		图片：<input type="file" name="img" value="">
+			<notempty name="res.img"> 
+				<img  src ="{$res.img}" style="width:120px;height:120px;"/>
+			</notempty>
+		</div>
+		<br>
+		剩余库存：<input type="text" name="" value="{$res.end_number}" disabled><br><br>
+		新增库存：<input type="text" name="end_number" value="" ><br><br>
+		<input type="hidden" name="is_card" value="{$res.is_card}" >
+		<input type="hidden" name="id" value="{$res.id}" >
+	   	<input type='submit' value='编辑'>
+		<input type='reset' value='重置'>
+   </form>
+</table>
+<br/>
+</body>
+</html>

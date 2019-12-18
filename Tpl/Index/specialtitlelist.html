@@ -1,0 +1,65 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<style>
+div{
+	display:inline;
+}
+
+th{
+	font-size:15px;
+}
+</style>
+
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 专题标题列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="specialtitle">添加专题标题</a></p>
+
+<div class="check_list">{$page}</div>
+<table width = "100%" cellpadding = '3' cellspacing = '3'>
+	<tr height = "10" >
+        <th width = "5%" align = "center">ID</th>
+		<th width = "30%" align = "center">专题标题</th>
+        <th width = "15%" align = "center">分类</th>
+        <th width = "5%" align = "center">排序</th>
+        <th width = "5%" align = "center">编辑</th>
+		<th width = "5%" align = "center">删除</th>
+	
+    </tr>
+    <foreach name="res" item="vo" >
+    <tr>
+        <td width ='5%'  align = "center">{$vo.id} </td>
+        <td width ='30%'  align = "center">
+        	{$vo.special_name}       		
+        </td>
+		<td width ='5%'  align = "center">
+            <if condition="$vo['special_type'] eq 1">商家
+                <elseif condition="$vo['special_type'] eq 2" />宝宝萌萌
+                <elseif condition="$vo['special_type'] eq 3" />值得买
+                <elseif condition="$vo['special_type'] eq 4" />聊一聊
+                <elseif condition="$vo['special_type'] eq 6" />群
+                </if>
+
+         </td>
+         <td width ='30%'  align = "center">
+            {$vo.sort}
+                
+            </td>
+    <td width ='5%' height='200' align = "center">
+           <a href="http://checkpic.meimei.yihaoss.top/index.php/Index/specialtitle?id={$vo.id}" target="_blank">编辑</a>
+         </td>
+		 <td width ='5%' height='200' align = "center">
+	       <a href="http://checkpic.meimei.yihaoss.top/index.php/Index/operator_special_title?id={$vo.id}">删除</a>
+         </td>
+
+    </tr>
+    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

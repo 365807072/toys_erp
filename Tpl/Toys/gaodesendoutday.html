@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <style>
+        th{
+            font-size:15px;
+        }
+    </style>
+    <script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+    <script language = "JavaScript" type = "text/javascript">
+
+    </script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 超时订单列表</p>
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+    <tr height = "10" >
+        <th width = "5%" align = "center">线路名称</th>
+        <th width = "5%" align = "center">修改时间</th>
+        <th width = "5%" align = "center">订单ID/用户ID/订单状态</th>
+        <th width = "5%" align = "center">配送员</th>
+        <th width = "5%" align = "center">线路状态</th>
+        <th width = "5%" align = "center">操作</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr align = "center">
+            <td width ='5%' align = "left" >{$vo.title}</td>
+            <td width ='5%' >{$vo.post_create_time}</td>
+            <td width ='5%' >{$vo.order_id}---{$vo.user_id}---{$vo.o_status_name}</td>
+            <td width ='5%' >{$vo.postman_name}</td>
+            <td width ='5%' >{$vo.status_name}</td>
+            <th width = "5%" align = "center"><a href="gaodesendoutdaydel/id/{$vo.id}" onclick="return confirm('是否删除？')">删除</a></th>
+        </tr>
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

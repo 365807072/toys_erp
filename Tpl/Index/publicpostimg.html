@@ -1,0 +1,207 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--发布话题</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('login_user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var login_user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				select.options.add(new Option(nick_name,login_user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			success: successProcess,
+		});
+		
+ }
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布话题 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/PublicPostImg">
+	发布人：
+	<select name="public_name">
+		<option value ="老邹" selected>老邹</option>
+		<option value ="李静" >李静</option>
+		<option value ="朱晓娟" >朱晓娟</option>
+		<option value ="韦杰">韦杰</option>
+		<option value="王春艳">王春艳</option>
+		<option value="匡英南">匡英南</option>
+		<option value="王贫">王贫</option>
+		<option value="王娜娜">王娜娜</option>
+		<option value="张艳华">张艳华</option>
+		<option value="黄效宏">黄效宏</option>
+		<option value="刘瑞">刘瑞</option>
+		<option value="韩亚莉">韩亚莉</option>
+		<option value="樊颖">樊颖</option>
+		<option value="美艳">美艳</option>
+		<option value="李玉清">李玉清</option>
+		<option value="杜志改">杜志改</option>
+		<option value="李永利">李永利</option>
+		<option value="马思敏">马思敏</option>
+		<option value="钟文东">钟文东</option>
+		<option value="郎鹏">郎鹏</option>
+	</select><br/>
+	话题用户：<include file="Index:userloginmanagement" />
+	外链作者：<textarea name="link_nick_name" value="" cols="100" rows="2"></textarea><br>
+	外链URL：<textarea name="post_url" value="" cols="100" rows="2"></textarea><br>
+	外链头像：<input type="file" name="link_avatar" value=""><br>
+	【下一版】是否视频：
+        <input type="radio" name="is_video" value="0" checked  >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_video" value="1" >是
+        <br>
+	【下一版】视频URL：<!-- <textarea name="video_url" value="" cols="100" rows="2"></textarea> --><input type="file" name="video" value=""><br>
+	标题：<textarea name="img_title" value="" cols="100" rows="2"></textarea><br>
+	选择分类：<select name="post_class">
+		  <option value ="0" selected>无</option>
+		  <option value ="1">成长与活动</option>
+		  <option value="2">育儿知识</option>
+		  <option value="3">时尚情感</option>
+		  <option value="4">辣妈厨房</option>
+	</select><br>
+	
+	<input type="radio" name="is_group" value="1"><!--checkbox-->设置成群&nbsp;&nbsp;&nbsp;&nbsp;群主题：<input type="text" name="group_name" value="">
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="type" value="2">同时分享到秀秀<br>
+    <input type="radio" name="is_group" value="2">设置成商家&nbsp;&nbsp;&nbsp;&nbsp;
+    商家标题：
+        <select name="business_id">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select><br>
+        <input type="radio" name="is_group" value="3">设置群中商家&nbsp;&nbsp;&nbsp;&nbsp;
+    群标题：
+        <select name="group_id">
+        	<option value="0">请选择群</option>
+            <foreach name="groupList" item="vo" >
+                <option value="{$vo.id}">{$vo.group_name}</option>
+            </foreach>
+        </select>
+    商家标题：
+        <select name="business_ids">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select>
+        <br>
+        <input type="radio" name="is_group" value="4">设置群中商家列表&nbsp;&nbsp;&nbsp;&nbsp;
+           群标题：
+        <select name="group_ids">
+        	<option value="0">请选择群</option>
+            <foreach name="groupList" item="vo" >
+                <option value="{$vo.id}">{$vo.group_name}</option>
+            </foreach>
+        </select>
+        <br>
+    <div class="div_box">
+	 	话题一描述:<textarea name="img_desc" value="" cols="100" rows="5"></textarea><br>
+		话题一图片1：<input type="file" name="img1" value=""><br>
+		话题一图片2：<input type="file" name="img2" value=""><br>
+		话题一图片3：<input type="file" name="img3" value=""><br>
+		话题一图片4：<input type="file" name="img4" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题二描述:<textarea name="img_desc2" value="" cols="100" rows="5"></textarea><br>
+		话题二图片1：<input type="file" name="img5" value=""><br>
+		话题二图片2：<input type="file" name="img6" value=""><br>
+		话题二图片3：<input type="file" name="img7" value=""><br>
+		话题二图片4：<input type="file" name="img8" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题三描述:<textarea name="img_desc3" value="" cols="100" rows="5"></textarea><br>
+		话题三图片1：<input type="file" name="img9" value=""><br>
+		话题三图片2：<input type="file" name="img10" value=""><br>
+		话题三图片3：<input type="file" name="img11" value=""><br>
+		话题三图片4：<input type="file" name="img12" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题四描述:<textarea name="img_desc4" value="" cols="100" rows="5"></textarea><br>
+		话题四图片1：<input type="file" name="img13" value=""><br>
+		话题四图片2：<input type="file" name="img14" value=""><br>
+		话题四图片3：<input type="file" name="img15" value=""><br>
+		话题四图片4：<input type="file" name="img16" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题五描述:<textarea name="img_desc5" value="" cols="100" rows="5"></textarea><br>
+		话题五图片1：<input type="file" name="img17" value=""><br>
+		话题五图片2：<input type="file" name="img18" value=""><br>
+		话题五图片3：<input type="file" name="img19" value=""><br>
+		话题五图片4：<input type="file" name="img20" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题六描述:<textarea name="img_desc6" value="" cols="100" rows="5"></textarea><br>
+		话题六图片1：<input type="file" name="img21" value=""><br>
+		话题六图片2：<input type="file" name="img22" value=""><br>
+		话题六图片3：<input type="file" name="img23" value=""><br>
+		话题六图片4：<input type="file" name="img24" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题七描述:<textarea name="img_desc7" value="" cols="100" rows="5"></textarea><br>
+		话题七图片1：<input type="file" name="img25" value=""><br>
+		话题七图片2：<input type="file" name="img26" value=""><br>
+		话题七图片3：<input type="file" name="img27" value=""><br>
+		话题七图片4：<input type="file" name="img28" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题八描述:<textarea name="img_desc8" value="" cols="100" rows="5"></textarea><br>
+		话题八图片1：<input type="file" name="img29" value=""><br>
+		话题八图片2：<input type="file" name="img30" value=""><br>
+		话题八图片3：<input type="file" name="img31" value=""><br>
+		话题八图片4：<input type="file" name="img32" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题九描述:<textarea name="img_desc9" value="" cols="100" rows="5"></textarea><br>
+		话题九图片1：<input type="file" name="img33" value=""><br>
+		话题九图片2：<input type="file" name="img34" value=""><br>
+		话题九图片3：<input type="file" name="img35" value=""><br>
+		话题九图片4：<input type="file" name="img36" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题十描述:<textarea name="img_desc10" value="" cols="100" rows="5"></textarea><br>
+		话题十图片1：<input type="file" name="img37" value=""><br>
+		话题十图片2：<input type="file" name="img38" value=""><br>
+		话题十图片3：<input type="file" name="img39" value=""><br>
+		话题十图片4：<input type="file" name="img40" value=""><br>
+	</div>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

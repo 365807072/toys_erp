@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布采购建议</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布采购建议</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/pubpuradvice">
+	发布人：
+	<select name="public_name">
+		<option value ="韦杰" <if condition="$res.public_name eq '韦杰' "> selected</if> >韦杰</option>
+		<option value="王贫" <if condition="$res.public_name eq '王贫' "> selected</if> >王贫</option>
+		<option value="谭硕" <if condition="$res.public_name eq '谭硕' "> selected</if> >谭硕</option>
+		<option value="李嘉欣" <if condition="$res.public_name eq '李嘉欣' "> selected</if> >李嘉欣</option>
+		<option value="张桐" <if condition="$res.public_name eq '张桐' "> selected</if> >张桐</option>
+		<option value="刘同艳" <if condition="$res.public_name eq '刘同艳' "> selected</if> >刘同艳</option>
+		<option value="樊颖" <if condition="$res.public_name eq '樊颖' "> selected</if> >樊颖</option>
+		<option value="美艳" <if condition="$res.public_name eq '美艳' "> selected</if> >美艳</option>
+		<option value="李玉清" <if condition="$res.public_name eq '李玉清' "> selected</if> >李玉清</option>
+		<option value="李永利" <if condition="$res.public_name eq '李永利' "> selected</if> >李永利</option>
+		<option value="马思敏" <if condition="$res.public_name eq '马思敏' "> selected</if> >马思敏</option>
+		<option value ="李静" <if condition="$res.public_name eq '李静' "> selected</if> >李静</option>
+		<option value="刘国华" <if condition="$res.public_name eq '刘国华' "> selected</if> >刘国华</option>
+		<option value="杜志改" <if condition="$res.public_name eq '杜志改' "> selected</if> >杜志改</option>
+		<option value="荆哲" <if condition="$res.public_name eq '荆哲' "> selected</if> >荆哲</option>
+	</select><br/>
+	建议用户：<textarea name="user_info" value="" cols="100" rows="2">{$res.user_info}</textarea><br>
+	建议玩具：<textarea name="toys_info" value="" cols="100" rows="2">{$res.toys_info}</textarea><br>
+	采购审核原因：<textarea name="purchase_reamrk" value="" cols="100" rows="2">{$res.purchase_reamrk}</textarea><br>
+	回复用户原因：<textarea name="reply_reamrk" value="" cols="100" rows="2">{$res.reply_reamrk}</textarea><br>
+	<input type='hidden' name='id' value='{$res.id}'>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

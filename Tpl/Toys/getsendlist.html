@@ -1,0 +1,95 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+        $('#excel_info').click(function(){ 
+            $(".excel_state").val("1"); 
+            $("#search_form").submit();
+        });
+    })
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 派单列表</p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getsendlist" >
+        用户ID：<input type="text" name="user_id" value="{$user_id}">&nbsp;&nbsp;&nbsp;&nbsp;
+        地址：<input type="text" name="search_address" value="{$search_address}">
+        <input type="hidden" name="excel_state" value="" class="excel_state">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        筛选条件[送]：<select name="search_condition_id">
+                        <option value="0">请选择</option>
+                        <option value="1" <if condition="$search_condition_id eq 1 "> selected</if> >已超过2天</option>
+                        <option value="2" <if condition="$search_condition_id eq 2 "> selected</if> >取消过派单</option>
+                        <option value="3" <if condition="$search_condition_id eq 3 "> selected</if> >已超2天-取消过</option>
+                    </select><br/>
+
+        多个用户ID：<textarea name="arr_user_id" value="" cols="70" rows="2">{$arr_user_id}</textarea>以"、"隔开 <br/>           
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type='submit' value='搜索'>
+   </form>
+<P><a id="excel_info" style="cursor:pointer;" >导出数据并生成excel</a></P>
+
+
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "5%" align = "center">用户Id</th>
+		<th width = "10%" align = "center">配送信息</th>
+        <th width = "10%" align = "center">下单时间</th>
+		<th width = "10%" align = "center">待配送</th>
+        <th width = "10" align = "center">待取回</th>
+        <th width = "10" align = "center">备注</th>
+        <th width = "5" align = "center">编辑</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='5%' align = "center">{$vo.user_id}</td>
+            <td width ='10%' align = "center">{$vo.user_info}</td>
+            <td width ='10%' align = "center">{$vo.new_create_time}</td>
+			<td width ='10%' >{$vo.send_toys}</td>
+            <td width ='10%' >{$vo.pick_toys}</td>
+            <td width ='10%' align = "center">{$vo.remark}</td>
+            <td width ='5%' align = "center">
+                <a href="../Others/toysremarkup?user_id={$vo.user_id_number}" target="_black" >编辑</a>
+            </td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

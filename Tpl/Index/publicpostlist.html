@@ -1,0 +1,192 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{:C('TITLE')}</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<!-- 审核日志列表 -->
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+function modify(obj,imgid){
+			
+			var divs = document.getElementById("imageDiv_" + imgid);
+			var inputs = divs.getElementsByTagName('input');
+			var is_recommend = obj.value;
+			//alert(oper);false;
+			var arrayObj = new Array();
+			for (var i = 0; i < inputs.length; i++) {
+			
+				if (inputs[i].checked == true) { //是否被选中
+					//记录id
+					var imageIdStr = inputs[i].id;
+					var id = imageIdStr.substring(6);//取 image_后面的字符
+					arrayObj.push(id);
+				}
+				
+			}
+			if (arrayObj.length == 0) {
+				alert("您未选中任何图片!");
+				return;
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "http://checkpic.meimei.yihaoss.top/index.php/Index/operator_post",
+				//data:"imgid="+arrayObj,
+				data:{"imgid":arrayObj,"is_recommend":is_recommend}, 
+				//data:"{imgid:'" + arrayObj + "',oprator:'" + oprator + "'}",
+				dataType: "json",
+				success:function(data){
+				
+					var  jsonData= eval(data);
+					if(jsonData.flag){
+		
+					}else{
+						alert(jsonData.reMsg);
+					
+					}
+				}
+			});
+		}
+	
+	 
+	 function change_class(obj,imgid){
+			
+			var divs = document.getElementById("imageDiv_" + imgid);
+			var inputs = divs.getElementsByTagName('input');
+			var post_cate_id = obj.value;
+			//alert(oper);false;
+			var arrayObj = new Array();
+			for (var i = 0; i < inputs.length; i++) {
+			
+				if (inputs[i].checked == true) { //是否被选中
+					//记录id
+					var imageIdStr = inputs[i].id;
+					var id = imageIdStr.substring(6);//取 image_后面的字符
+					arrayObj.push(id);
+				}
+				
+			}
+			if (arrayObj.length == 0) {
+				alert("您未选中任何图片!");
+				return;
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "http://checkpic.meimei.yihaoss.top/index.php/Index/operator_postnew_class",
+				data:{"imgid":arrayObj,"post_cate_id":post_cate_id}, 
+				dataType: "json",
+				success:function(data){
+				
+					var  jsonData= eval(data);
+					if(jsonData.flag){
+		
+					}else{
+						alert(jsonData.reMsg);
+					
+					}
+				}
+			});
+		}
+		
+</script>
+
+
+<style>
+th{
+	font-size:15px;
+}
+
+
+</style>
+
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 话题【热点】列表   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="publicpostimg">发布话题【热点】</a></p>
+<form name = "orderForm" action ="http://checkpic.meimei.yihaoss.top/index.php/Index/publicpostlist" method = "get">
+	搜索热点内容<input type="text" name="img_description" value="">
+	<input type ='submit' class ="right-button01" value = "确定"  />
+</form> 
+<div class="check_list">{$page}</div>
+<table width = "100%" cellpadding = '3' cellspacing = '3'>
+	<tr height = "10"  >
+		<th width = "5%" align = "center">楼主</th>
+		<th width = "20%" align = "center">话题描述</th>
+		<th width = "20%" align = "center">话题图片</th>
+		<th width = "5%" align = "center">设置精品</th>
+		<th width = "5%" align = "center">操作</th>
+		
+		<th width = "5%" align = "center">评论</th>
+		<th width = "5%" align = "center">删除</th>
+		<th width = "5%" align = "center">新版今日头条</th>
+		<th width = "5%" align = "center">更改分类</th>
+    </tr>
+    <foreach name="res" item="vo" >
+    <tr>
+	
+        <td width ='10%' align = "center">{$vo.nick_name}</td>
+		
+        	<td width ='30%'  align = "center">
+        	
+        		<table width = "100%">
+        			<tr>
+        				<td align = "left">
+        				  
+        				<div id = "imageDiv_{$vo.id}">
+        				   <input  id ="input_{$vo.id}" name ="input_{$vo.id}" type = "checkbox" />{$vo.id}&nbsp;&nbsp;
+        				 
+        				    <foreach name="vo.imgUrl" item="fff" key="k">
+						
+							<if condition="$k%8 eq 0">
+        				       <br />
+							  
+        				     </if>
+							
+    							 <img id ="image_{$vo.id}" name="image_{$vo.id}" src ="{$fff}_thumb_200.jpg" style="width:120px;height:120px;"/>
+        				      
+        				   
+    						</foreach> 
+								
+        				 <div id="text" style="color:red;font-size:24px;"></div>
+        			</div>
+        				</td>
+        			</tr>
+        		</table>
+        		
+        	</td>	
+			 <td width ='10%' align = "center">{$vo.img_description|msubstr=0,40,'utf-8'}</td>
+		<td width ='5%' height='200' align = "center">
+	        <select id = "oper_selected" name = "oper_selected" onchange = "modify(this,{$vo.id})" >
+				<option value="0" <eq name="vo.is_recommend" value="0"> selected</eq>>非精品</option>
+				<option value="1" <eq name="vo.is_recommend" value="1">selected</eq>>精品</option>
+			 </select>
+         </td>			
+			<td width ='10%' align = "center"><a href="replaypostimg?id={$vo.id}" target="_blank">回复话题</a></td>
+			
+			<td width ='10%' align = "center"><a href="postreplylist?id={$vo.id}" target="_blank">去评论</a></td>
+			<td width ='5%' height='200' align = "center">
+				<a href="http://checkpic.meimei.yihaoss.top/index.php/Index/operator_poststate?imgid={$vo.id}">删除</a>
+			</td>
+			<td width ='10%' align = "center"><a href="addcover?id={$vo.id}&user_id={$vo.user_id}" target="_blank">设置今日头条</a></td>
+			
+			<td width ='5%' height='200' align = "center">
+	        <select id = "oper_selected" name = "oper_selected" onchange = "change_class(this,{$vo.id})" >
+				<option value="0" <eq name="vo.post_cate_id" value="0">selected</eq>>无</option>
+				<option value="1" <eq name="vo.post_cate_id" value="1">selected</eq>>成长与活动</option>
+				<option value="2" <eq name="vo.post_cate_id" value="2">selected</eq>>育儿知识</option>
+				<option value="3" <eq name="vo.post_cate_id" value="3">selected</eq>>时尚情感</option>
+				<option value="4" <eq name="vo.post_cate_id" value="4">selected</eq>>辣妈厨房</option>
+				<option value="5" <eq name="vo.post_cate_id" value="5">selected</eq>>视频</option>
+			 </select>
+         </td>		
+    </tr>
+    
+    </foreach>
+</table>
+<br/>
+<div class="check_list">{$page}</div>
+
+</body>
+</html>

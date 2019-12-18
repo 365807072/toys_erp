@@ -1,0 +1,78 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>设置热门</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 设置热门 </p>
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST' action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editHot" > 
+    &nbsp;&nbsp;&nbsp;&nbsp;标题：<textarea name="title" value="" cols="100" rows="2">{$businessList.title}</textarea><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;描述：<textarea name="description" value="" cols="100" rows="2">{$businessList.description}</textarea><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;时间：<input type="text" name="create_time" value="{$businessList.create_time}"><br>
+    图状态：
+        <input type="radio" name="index_show" value="2" <if condition="$businessList.index_show neq 1 "> checked </if> >小图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="index_show" value="1" <if condition="$businessList.index_show eq 1 "> checked </if>>大图
+        <br>
+    跳转页面：
+        <input type="radio" name="index_show_detail" value="1" <if condition="($businessList.index_show_detail eq 1) or ($businessList.index_show_detail eq '') "> checked </if> >详情【包括帖子、视频】&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="index_show_detail" value="2" <if condition="$businessList.index_show_detail eq 2 "> checked </if>>列表【包括帖子、视频、群】
+        <input type="radio" name="index_show_detail" value="3" <if condition="$businessList.index_show_detail eq 3 "> checked </if>>群列表
+        <input type="radio" name="index_show_detail" value="4" <if condition="$businessList.index_show_detail eq 4 "> checked </if>>群详情
+        <br>
+        <div style="width:1300px;border-top:1px dashed #111;border-bottom:1px dashed #111;">
+        标签：
+        <!-- <volist name="labelListing" id="vo"  >                
+            <input type="radio" name="index_list_key"
+                 <if condition="$vo.label_id eq $businessList.index_list_key "> checked</if > 
+                value="{$vo.label_id}"  >
+            {$vo.label_name} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </volist><br/> -->
+        <volist name="top_label" id="vo"  >   
+            <div style="margin-left:30px;">
+                <input type="radio" name="index_list_key"
+                <if condition="$vo.label_id eq $businessList.index_list_key "> checked</if > 
+                value="{$vo.label_id}"  >{$vo.label_name}
+            </div> 
+             <notempty name="vo['category']" >
+                <div style="margin-left:80px;">
+                    <volist name="vo['category']" id="cate"  >                     
+                        <input type="radio" name="index_list_key"
+                        <if condition="$cate.label_id eq $businessList.index_list_key "> checked</if > 
+                        value="{$cate.label_id}"  >{$cate.label_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </volist>
+                 </div>
+             </notempty>
+        </volist>
+        </div>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        &nbsp;&nbsp;&nbsp;&nbsp;图片：<input type="file" name="img1" value=""> 
+            <notempty name="businessList.img1"> 
+                <img  src ="{$businessList.img1}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <input type="hidden" name="index_data" value="{$index_data}">
+        <input type="hidden" name="id" value="{$businessList.id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

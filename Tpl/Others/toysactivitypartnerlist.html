@@ -1,0 +1,150 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 超级伙伴详情 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+<div class="check_list">
+    成功邀请  {$total_num}  人<br>
+    已结算  {$balance_info.balance_have_num}  人，结算金额  {$balance_info.balance_have_price}<br>
+    已开卡待结算  {$balance_info.balance_ing_num}  人，结算金额  {$balance_info.balance_ing_price}<br>
+    未开卡待结算  {$balance_info.balance_ed_num}  人，结算金额  {$balance_info.balance_ed_price}
+</div>
+
+<br>
+<!--<div class="check_list">{$page}</div>-->
+<table width = "100%"  border="1">
+	<tr height = "10" >
+
+        <th width = "5%" align = "center">用户id</th>
+        <th width = "10%" align = "center">用户昵称</th>
+        <th width = "10%" align = "center">购买价格</th>
+        <th width = "5%" align = "center">会员卡状态</th>
+        <th width = "10%" align = "center">结算金额</th>
+        <th width = "10%" align = "center">是否结算</th>
+        <th width = "10%" align = "center">备注</th>
+        <th width = "10%" align = "center">创建时间</th>
+    </tr>
+
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='5%' align = "center">{$vo.user_id}</td>
+            <td width ='10%' align = "center">{$vo.user_name}</td>
+            <td width ='10%' align = "center">{$vo.sell_price}</td>
+            <td width ='5%' align = "center">{$vo.card_name}</td>
+            <td width ='10%' align = "center">
+                <!--<form  onsubmit="return sumbit_fsure({$vo.id})">-->
+                    <!--<input type="hidden" name="source" value="1">-->
+                    <!--<input type="hidden" name="id" value="{$vo.id}">-->
+                    <input id="price{$vo.id}" type="text" name="balance_price" value="{$vo.balance_price}" ><br>
+                    <input type="button" class="btn" value="编辑" sourceindex="1" idindex="{$vo.id}">
+                <!--</form>-->
+            </td>
+
+            <td width ='10%' align = "center">
+                <!--<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysUpBalanceInfo"  method="post" onsubmit="return confirm('确定？')">-->
+                    <!--<input type="hidden" name="source" value="2">-->
+                    <!--<input type="hidden" name="id" value="{$vo.id}">-->
+                    <select name="is_balance" id="balance{$vo.id}">
+                        <option value="0" <if condition="$vo.is_balance eq 0 "> selected</if> >待结算</option>
+                        <option value="1" <if condition="$vo.is_balance eq 1 "> selected</if> >已结算</option>
+                    </select>
+                    <input type="button" class="btn2" value="编辑" sourceindex="2" idindex="{$vo.id}">
+                </form>
+            </td>
+
+            <td width ='10%' align = "center">
+                <!--<form  onsubmit="return sumbit_fsure({$vo.id})">-->
+                <!--<input type="hidden" name="source" value="1">-->
+                <!--<input type="hidden" name="id" value="{$vo.id}">-->
+                <input id="remark{$vo.id}" type="text" name="remark" value="{$vo.remark}" ><br>
+                <input type="button" class="btn3" value="编辑" sourceindex="3" idindex="{$vo.id}">
+                <!--</form>-->
+            </td>
+
+            <td width ='10%' align = "center">{$vo.create_time}</td>
+        </tr>
+    </foreach>
+</table>
+<br/>
+<br/>
+<!--<div class="check_list">{$page}</div>-->
+
+</body>
+
+<script type="text/javascript">
+
+
+    $(".btn").on("click",function(){
+        var sourceindex = $(this).attr("sourceindex");
+        var idindex = $(this).attr("idindex");
+        var valindex = $("#price"+idindex).val();
+        $.ajax({
+            url:'https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysUpBalanceInfo',
+            type:'POST',
+            data:{
+                source:sourceindex,
+                id: idindex,
+                balance_price:valindex
+            },
+            success:function(res){
+                var data = JSON.parse(res);
+                alert(data.reMsg);
+            }
+        })
+    })
+
+    $(".btn2").on("click",function(){
+        var sourceindex = $(this).attr("sourceindex");
+        var idindex = $(this).attr("idindex");
+        var valindex = $("#balance"+idindex).val();
+        console.log(sourceindex);
+        console.log(idindex);
+        console.log(valindex);
+        $.ajax({
+            url:'https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysUpBalanceInfo',
+            type:'POST',
+            data:{
+                source:sourceindex,
+                id: idindex,
+                is_balance:valindex
+            },
+            success:function(res){
+                var data = JSON.parse(res);
+                alert(data.reMsg);
+            }
+        })
+    })
+
+    $(".btn3").on("click",function(){
+        var sourceindex = $(this).attr("sourceindex");
+        var idindex = $(this).attr("idindex");
+        var valindex = $("#remark"+idindex).val();
+        $.ajax({
+            url:'https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysUpBalanceInfo',
+            type:'POST',
+            data:{
+                source:sourceindex,
+                id: idindex,
+                remark:valindex
+            },
+            success:function(res){
+                var data = JSON.parse(res);
+                alert(data.reMsg);
+            }
+        })
+    })
+
+</script>
+
+</html>

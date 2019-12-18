@@ -1,0 +1,173 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+        $('#excel_info').click(function(){ 
+            $(".excel_state").val("1"); 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'>
+    仓库管理页面&nbsp;&nbsp;&nbsp;&nbsp;<a target="_self" href="/Others/edittoysorder">编辑玩具订单</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;<a target="_self" href="/Toys/getlogisticslist">物流管理</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;<a target="_self" href="http://www.meimei.yihaoss.top/H5/check/inventory.html">玩具库存</a>
+</p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Others/toysstorehouse" >
+        订单ID：<input type="text" name="order_id" value="{$order_id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;用户ID：<input type="text" name="user_id" value="{$user_id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;消费状态：
+        <select name="order_status">
+            <option value="0" >所有</option>
+            <option value="1"  <if condition="$order_status eq 1 "> selected</if>>备货中</option>
+            <option value="2" <if condition="$order_status eq 2 "> selected</if>>待派单</option>
+            <option value="3" <if condition="$order_status eq 3 "> selected</if>>待接单</option>
+            <option value="10" <if condition="$order_status eq 10 "> selected</if>>待取回</option>
+            <option value="7" <if condition="$order_status eq 7 "> selected</if>>待入库</option>
+        </select>
+         <br>
+         玩具ID：<input type="text" name="business_id" value="{$business_id}">
+         &nbsp;&nbsp;&nbsp;&nbsp;玩具编号：<input type="text" name="toys_number" value="{$toys_number}" > <br>
+         订单号：<input type="text" name="order_num" value="{$order_num}">
+         开始时间:<input type="text" name="start_time" value="{$start_time}" class="ui_timepicker">--
+         结束时间:<input type="text" name="end_time" value="{$end_time}" class="ui_timepicker">
+         <input type="hidden" name="excel_state" value="" class="excel_state">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+<P><a id="excel_info" style="cursor:pointer;" >导出数据并生成excel</a></P>
+</div>
+
+
+
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "10%" align = "center">订单Id/订单号/订单批号</th>
+        <th width = "10%" align = "center">消费状态</th>
+		<th width = "10%" align = "center">用户信息</th>
+        <th width = "10%" align = "center">收货信息</th>
+		<th width = "10%" align = "center">玩具ID/玩具标题/玩具编号</th>
+        <th width = "10%" align = "center">预约时间/修改时间</th>
+        <th width = "10%" align = "center">备注</th>
+        <th width = "10%" align = "center">操作</th>
+
+        <!-- <th width = "5%" align = "center">操作</th> -->
+	
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='10%' align = "center">{$vo.id}<br/>{$vo.order_num}<br/>{$vo.combined_order_id}</td>
+            <td width ='10%' align = "center">
+                <if condition="$vo['status'] eq 2" >
+                    <if condition="$order_status eq 1 ">
+                    备货中
+                    </if>
+                    <if condition="$order_status eq 2 ">
+                        <font style="color:red;">待派单</font>
+                    </if>
+                    <if condition="$order_status eq 3 ">
+                        <font style="color:red;">待接单</font>
+                    </if>
+                    <elseif condition="$vo['status'] eq 5" />送货中
+                    <elseif condition="$vo['status'] eq 6" />玩乐中
+                    <elseif condition="$vo['status'] eq 7" />待入库
+                    <elseif condition="$vo['status'] eq 10" />待取回
+                    <elseif condition="$vo['status'] eq 11" />已入库
+                </if>
+            </td>
+            <td width ='10%'  align = "center">
+            {$vo.user_id}<br/>
+                {$vo.nick_name}
+
+            </td>
+            <td  width ='10%'  align = "center">{$vo.ord_user_name}<br/> {$vo.ord_mobile} <br>{$vo.address}</td>
+			<td width ='10%' align = "center">{$vo.business_id}<br/><a href="http://checkpic.meimei.yihaoss.top/Others/toysimgnum?business_id={$vo.business_id}&order_id={$vo.id}&status={$vo.status}&delivery_time={$vo.delivery_time}&user_id={$vo.user_id}">{$vo.business_title}</a><br/>{$vo.toys_number}</td>
+
+            <td width ='10%' align = "center"><if condition="$vo.status eq 2 OR $vo.status eq 5"><font style="color:red;">{$vo.delivery_time}</font><br></if>{$vo.post_create_time}</td>
+            <td width ='10%' align = "center">{$vo.remark}<br><a href="http://checkpic.meimei.yihaoss.top/Others/toysremarkup?order_id={$vo.id}">增加备注</a></td>
+            <td width ='10%' align = "center">
+                <if condition="$vo['status'] eq 7">
+                    <form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/PubOrderDetail" method="post" onsubmit="return confirm('确定入库?')">
+
+                        <input type="hidden" name="order_id" value="{$vo.id}">
+                        <input type="hidden" name="status" value="{$vo.status}">
+                        <input type="hidden" name="business_id" value="{$vo.business_id}">
+                        <input type="hidden" name="login_userid" value="300712">
+                        <input type="submit" value="入库">
+                    </form>
+                </if>
+
+                <if condition="$vo['status'] eq 2">
+                    <if condition="$vo['toys_number'] neq null">
+                    <if condition="$vo['is_ready'] eq 0">
+                            <a href="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/loadtoysIDsend&user_id={$vo.user_id}&is_ready=1" onclick="return confirm('确定派单？')">派单</a>
+                    </if>
+                    </if>
+                </if>
+
+                <if condition="$vo['status'] eq 10">
+                    <if condition="$vo['toys_number'] neq null">
+                        <if condition="$vo['is_ready'] eq 0">
+                            <a href="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/loadtoysIDsend&user_id={$vo.user_id}&is_ready=1" onclick="return confirm('确定派单？')">派单</a>
+                        </if>
+                    </if>
+                </if>
+
+                <if condition="$vo['status'] eq 2">
+                    <if condition="$vo['toys_number'] neq null">
+                        <if condition="$vo['is_ready'] eq 1">
+                            <a href="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/loadtoysIDsend&user_id={$vo.user_id}&is_ready=2" onclick="return confirm('取消派单？')">取消派单</a>
+                        </if>
+                    </if>
+                </if>
+
+                <if condition="$vo['status'] eq 10">
+                    <if condition="$vo['toys_number'] neq null">
+                        <if condition="$vo['is_ready'] eq 1">
+                            <a href="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/loadtoysIDsend&user_id={$vo.user_id}&is_ready=2" onclick="return confirm('取消派单？')">取消派单</a>
+                        </if>
+                    </if>
+                </if>
+
+            </td>
+            <!-- <td width ='10%' height='200' align = "center">
+                <a href="http://checkpic.meimei.yihaoss.top/Others/updateToysorder?id={$vo.id}" target="_blank" >编辑</a>
+            </td> -->
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

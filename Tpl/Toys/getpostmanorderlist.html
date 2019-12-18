@@ -1,0 +1,107 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 配送管理列表 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getpostmanorderlist" >
+
+        订单状态：<select name="search_status">
+                    <option value="0">请选择</option>
+                    <option value="1"<if condition="$search_status eq 1 "> selected</if>>待支付</option>
+                    <option value="2"<if condition="$search_status eq 2 "> selected</if>>准备中</option>
+                    <option value="17"<if condition="$search_status eq 17 "> selected</if>>重新配送</option>
+                    <option value="5"<if condition="$search_status eq 5 "> selected</if>>送货中</option>
+                    <option value="6"<if condition="$search_status eq 6 "> selected</if>>玩乐中</option>
+                    <option value="14"<if condition="$search_status eq 14 "> selected</if>>恢复玩乐</option>
+                    <option value="7"<if condition="$search_status eq 7 "> selected</if>>待入库</option>
+                    <option value="10"<if condition="$search_status eq 10 "> selected</if>>待取回</option>
+                    <option value="8"<if condition="$search_status eq 8 "> selected</if>>退款中</option>
+                    <option value="9"<if condition="$search_status eq 9 "> selected</if>>已退款</option>
+                    <option value="11"<if condition="$search_status eq 11 "> selected</if>>已入库</option>
+                  </select>
+    &nbsp;&nbsp;&nbsp;&nbsp;订单id：<input type="text" name="serach_order_id" value="{$serach_order_id}">
+    &nbsp;&nbsp;&nbsp;&nbsp;用户id：<input type="text" name="serach_user_id" value="{$serach_user_id}">
+    &nbsp;&nbsp;&nbsp;&nbsp;赔付状态：<select name="search_compensation_status">
+                                                <option value="0">请选择</option>
+                                                <option value="1"<if condition="$search_compensation_status eq 1 "> selected</if>>需要赔付</option>
+                                                <option value="2"<if condition="$search_compensation_status eq 2 "> selected</if>>已生成赔付</option>
+                                        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "5%" align = "center">订单ID</th>
+        <th width = "10%" align = "center">订单状态</th>
+		<th width = "10%" align = "center">更新时间/玩具名称</th>
+        <th width = "10%" align = "center">配送图片</th>
+		<th width = "10%" align = "center">取回图片</th>
+        <th width = "10%" align = "center">配送员</th>
+        <th width = "10%" align = "center">赔付备注</th>
+        <th width = "10%" align = "center">赔付信息</th>
+        <th width = "5" align = "center">操作</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='5%' align = "center">{$vo.order_id}</td>
+            <td width ='10%' align = "center">{$vo.status_name}</td>
+            <td width ='10%' align = "center">{$vo.post_create_time}<br><br>{$vo.business_title}</td>
+            <td width ='300px'>
+                <div style="width: 300px;">
+                    <foreach name="vo.admin_load_img" item="vv">
+                        <img src="https://api.meimei.yihaoss.top/{$vv}" style="width:150px;height:150px;" alt="">
+                    </foreach>
+                </div>
+            </td>
+            <td width ='300px'>
+                <div style="width: 300px;">
+                    <foreach name="vo.user_load_img" item="vv">
+                        <img src="https://api.meimei.yihaoss.top/{$vv}" style="width:150px;height:150px;" alt="">
+                    </foreach>
+                </div>
+            </td>
+            <td width ='10%' align = "center">{$vo.postman_name}</td>
+            <td width ='10%' align = "center">{$vo.toys_payment_title}</td>
+            <td width ='10%' align = "center">{$vo.compensation_status_name}</td>
+            <td width ='10%' align = "center"><a href="toyspayment/order_id/{$vo.order_id}">生成赔付订单</a></td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

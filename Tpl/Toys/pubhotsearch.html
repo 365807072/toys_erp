@@ -1,0 +1,35 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布热门搜索</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布热门搜索</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/pubhotsearch">
+	排序：<input type="text" name="rank" value="{$res.rank}" >（越大越排前面）<br>
+	搜索名：<textarea name="search_title" value="" cols="100" rows="1">{$res.search_title}</textarea><br>
+	<input type='hidden' name='id' value='{$res.id}'>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

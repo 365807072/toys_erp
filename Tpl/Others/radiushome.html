@@ -1,0 +1,128 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--添加半径首页</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+	function province(obj){		
+		var style=obj.value;
+		if(style==0){
+			return;
+		}
+		var select = document.getElementById('type');		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['title'];
+				select.options.add(new Option(nick_name,user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Others/getType/cid/"+style,
+			success: successProcess,
+		});		
+ 	}
+</script>
+
+
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 添加半径首页 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/AddRadiusHome">
+	半径首页标题：<textarea name="title" value="" cols="100" rows="2">{$specialList.title}</textarea><br>
+	分类：<select name="style" style=" width:auto;" onchange="province(this);">
+		<option value="0">请选择来源</option>
+		<option value="1" <if condition="$specialList.style eq 1 "> selected</if>>秀秀</option>
+		<option value="2" <if condition="$specialList.style eq 2 "> selected</if>>话题</option>
+		<option value="3" <if condition="$specialList.style eq 3 "> selected</if>>商家</option>
+		<option value="4" <if condition="$specialList.style eq 4 "> selected</if>>值得买</option>
+		<option value="5" <if condition="$specialList.style eq 5 "> selected</if>>群</option>
+	</select>
+	<select name="type" id="type" style=" width:auto;" >
+        <if condition="$specialList.style eq 1" >
+                <option value="2" <if condition="$specialList.type eq 2 "> selected</if>>某一个专题</option>
+                <option value="5" <if condition="$specialList.type eq 5 "> selected</if>>某一个专题详情</option>
+                <option value="3" <if condition="$specialList.type eq 3 "> selected</if>>某一个秀秀详情</option>
+                <option value="1" <if condition="$specialList.type eq 1 "> selected</if>>专题列表</option>
+                <option value="4" <if condition="$specialList.type eq 4 "> selected</if>>秀秀列表</option>
+            <elseif condition="$specialList.style eq 2" />
+                <option value="22" <if condition="$specialList.type eq 22 "> selected</if>>某一个帖子详情</option>
+                <option value="21" <if condition="$specialList.type eq 21 "> selected</if>>话题列表</option>
+            <elseif condition="$specialList.style eq 3" />
+                <option value="42" <if condition="$specialList.type eq 42 "> selected</if>>某一个商家详情</option>
+                <!-- <option value="43" <if condition="$specialList.type eq 43 "> selected</if>>群中某一个商家</option> -->
+                <option value="41" <if condition="$specialList.type eq 41 "> selected</if>>商家列表</option>
+            <elseif condition="$specialList.style eq 4" />
+                <option value="52" <if condition="$specialList.type eq 52 "> selected</if>>某一个值得买详情</option>
+                <option value="51" <if condition="$specialList.type eq 51 "> selected</if>>值得买列表</option>
+            <elseif condition="$specialList.style eq 5" />
+                <option value="62" <if condition="$specialList.type eq 62 "> selected</if>>某一个群详情</option>
+                <option value="61" <if condition="$specialList.type eq 61 "> selected</if>>群列表</option>
+            <else />
+            <option value="0">请选择跳转分类</option>
+        </if>
+    </select><br>
+    排序：<input type="text" name="sort" value="{$specialList.sort}"><br>
+    <div style="width:1200px;border-bottom:1px dashed #111;">
+    	图片一：<input type="file" name="img1" value="">
+            <notempty name="specialList.img1"> 
+                <img  src ="{$specialList.img1}" style="width:120px;height:120px;"/>
+            </notempty><br/>
+        图片一来源ID：<input type="text" name="img_id1" value="{$specialList.img_id1}"><br>
+        <!-- 图片一来源URL：<textarea name="post_url1" value="" cols="100" rows="2">{$specialList.post_url1}</textarea>(值得买选填)<br> -->
+        图片一标题：<textarea name="img_title1" value="" cols="100" rows="2">{$specialList.img_title1}</textarea>(秀秀或群必填)<br>
+        图片一现价：<input type="text" name="current_price1" value="{$specialList.current_price1}">(值得买或商家必填)<br>
+        图片一原价：<input type="text" name="original_price1" value="{$specialList.original_price1}">(值得买或商家必填)<br>
+    </div>
+    <div style="width:1200px;border-bottom:1px dashed #111;">
+    	图片二：<input type="file" name="img2" value="">
+            <notempty name="specialList.img2"> 
+                <img  src ="{$specialList.img2}" style="width:120px;height:120px;"/>
+            </notempty><br/>
+        图片二来源ID：<input type="text" name="img_id2" value="{$specialList.img_id2}"><br>
+       <!--  图片二来源URL：<textarea name="post_url2" value="" cols="100" rows="2">{$specialList.post_url2}</textarea>(值得买选填)<br> -->
+        图片二标题：<textarea name="img_title2" value="" cols="100" rows="2">{$specialList.img_title2}</textarea>(秀秀或群必填)<br>
+        图片二现价：<input type="text" name="current_price2" value="{$specialList.current_price2}">(值得买或商家必填)<br>
+        图片二原价：<input type="text" name="original_price2" value="{$specialList.original_price2}">(值得买或商家必填)<br>
+    </div>
+    <div style="width:1200px;border-bottom:1px dashed #111;">
+    	图片三：<input type="file" name="img3" value="">
+            <notempty name="specialList.img3"> 
+                <img  src ="{$specialList.img3}" style="width:120px;height:120px;"/>
+            </notempty><br/>
+        图片三来源ID：<input type="text" name="img_id3" value="{$specialList.img_id3}"><br>
+        <!-- 图片三来源URL：<textarea name="post_url3" value="" cols="100" rows="2">{$specialList.post_url3}</textarea>(值得买选填)<br> -->
+        图片三标题：<textarea name="img_title3" value="" cols="100" rows="2">{$specialList.img_title3}</textarea>(秀秀或群必填)<br>
+        图片三现价：<input type="text" name="current_price3" value="{$specialList.current_price3}">(值得买或商家必填)<br>
+        图片三原价：<input type="text" name="original_price3" value="{$specialList.original_price3}">(值得买或商家必填)<br>
+    </div>	
+	<input type="hidden" name="id" value="{$specialList.id}">
+   	<input type='submit' value='添加'>
+	<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

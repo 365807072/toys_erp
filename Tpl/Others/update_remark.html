@@ -1,0 +1,51 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){
+	 window.onscroll=function(){
+		 var sl=-Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+		 document.getElementById('head').style.left=sl+'px';
+
+	 };
+}) 
+</script>
+
+
+</head>
+
+<body  class = "mainBody" id="mainBody">
+<div style=" width:150%;" id="head">
+	<p class='tablestyle_title' style="width:150%;">
+		编辑审核备注
+	</p>
+</div>
+<p>玩具ID：{$toys_info.id}</p>
+<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV7/ExchangeToysremark" method="post">
+	审核备注：<textarea name="my_remark" id="" cols="30" rows="5">{$toys_info.my_remark}</textarea>
+	<input type="hidden" name="id" value="{$toys_info.id}">
+	<br>
+	<input type="submit" value="确认提交">
+</form>
+
+
+
+</body>
+</html>

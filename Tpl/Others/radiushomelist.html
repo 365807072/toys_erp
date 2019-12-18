@@ -1,0 +1,80 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<style>
+div{
+	display:inline;
+}
+
+th{
+	font-size:15px;
+}
+</style>
+
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 半径首页列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="radiushome">添加半径首页</a></p>
+
+<div class="check_list">{$page}</div>
+<table width = "100%" cellpadding = '3' cellspacing = '3'>
+	<tr height = "10" >
+        <th width = "5%" align = "center">ID</th>
+		<th width = "10%" align = "center">半径首页标题</th>
+        <th width = "10%" align = "center">来源</th>
+        <th width = "10%" align = "center">跳转分类</th>
+        <th width = "5%" align = "center">排序</th>
+        <!-- <th width = "5%" align = "center">编辑</th> -->
+		<th width = "5%" align = "center">删除</th>
+	
+    </tr>
+    <foreach name="res" item="vo" >
+    <tr>
+        <td width ='5%'  align = "center">{$vo.id} </td>
+        <td width ='10%'  align = "center">{$vo.title}</td>
+        <td width ='10%'  align = "center">
+            <if condition="$vo['style'] eq 1">秀秀
+                <elseif condition="$vo['style'] eq 2" />话题
+                <elseif condition="$vo['style'] eq 3" />商家
+                <elseif condition="$vo['style'] eq 4" />值得买
+                <elseif condition="$vo['style'] eq 5" />群
+                </if>
+        </td>
+        
+		<td width ='10%'  align = "center">
+            <if condition="$vo['type'] eq 1">专题列表
+                <elseif condition="$vo['type'] eq 2" />某一个专题
+                <elseif condition="$vo['type'] eq 3" />某一个秀秀详情
+                <elseif condition="$vo['type'] eq 4" />秀秀列表
+                <elseif condition="$vo['type'] eq 5" />某一个专题详情
+                <elseif condition="$vo['type'] eq 21" />话题列表
+                <elseif condition="$vo['type'] eq 22" />某一个帖子详情
+                <elseif condition="$vo['type'] eq 41" />商家列表
+                <elseif condition="$vo['type'] eq 42" />某一个商家详情
+                <elseif condition="$vo['type'] eq 43" />群中某一个商家
+                <elseif condition="$vo['type'] eq 51" />值得买列表
+                <elseif condition="$vo['type'] eq 52" />某一个值得买详情
+                <elseif condition="$vo['type'] eq 61" />群列表
+                <elseif condition="$vo['type'] eq 62" />某一个群详情
+                <else />其他
+                </if>
+
+         </td>
+         <td width ='5%'  align = "center">{$vo.sort}</td>
+        <!-- <td width ='5%' height='200' align = "center">
+           <a href="http://checkpic.meimei.yihaoss.top/Others/radiushome?id={$vo.id}" target="_blank">编辑</a>
+         </td> -->
+		 <td width ='5%' height='200' align = "center">
+	       <a href="http://checkpic.meimei.yihaoss.top/Others/operator_radius_home?id={$vo.id}">删除</a>
+         </td>
+
+    </tr>
+    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

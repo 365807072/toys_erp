@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>玩具订单赔付</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript"> 
+</script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 玩具订单赔付 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/webPubToysPayment">
+		&nbsp;&nbsp;&nbsp;用户ID：<input type="text" name="login_user_id" value="{$getUserRes.user_id}" ><br>
+
+
+		&nbsp;&nbsp;&nbsp;原订单id：<input type="text" name="order_id" value="{$getUserRes.id}" ><br>
+
+		&nbsp;&nbsp;&nbsp;玩具id：<input type="text" name="business_id" value="{$getUserRes.business_id}" ><br>
+
+		&nbsp;&nbsp;&nbsp;玩具编号：<input type="text" name="toys_number" value="{$getUserRes.toys_number}" ><br><br><br>
+
+		&nbsp;&nbsp;&nbsp;来源：<input type="radio" name="is_prize" value="5"  >零件丢失&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="is_prize" value="4" >玩具损坏<br>
+
+		&nbsp;&nbsp;&nbsp;赔付原因：<textarea name="toys_payment_title" value="" cols="100" rows="2"></textarea><br>
+
+		&nbsp;&nbsp;&nbsp;赔付金额：<input type="text" name="sell_price" value="" ><br><br>
+
+		&nbsp;&nbsp;&nbsp;赔付订单主标题：<input type="text" name="business_des" value="" ><br>
+		&nbsp;&nbsp;&nbsp;赔付订单封面图：<input type="file" name="img1" value=""><br><br>
+
+		&nbsp;&nbsp;&nbsp;送到图片：
+		<foreach name="admin_load_img_arr" item="vo" >
+			<input id="admin{$vo}" type="checkbox" value="{$vo}" name="admin_load_img_arr[]"><label for="admin{$vo}"><img src="https://api.meimei.yihaoss.top/{$vo}" style="width:200px;height:200px;" ></label>
+		</foreach>
+		<br><br>
+		&nbsp;&nbsp;&nbsp;取回图片：
+		<foreach name="user_load_img_arr" item="vo" >
+			<input id="user{$vo}" type="checkbox" value="{$vo}" name="user_load_img_arr[]"><label for="user{$vo}"><img src="https://api.meimei.yihaoss.top/{$vo}" style="width:200px;height:200px;" ></label>
+		</foreach>
+		<br><br>
+		&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+		&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+</table>
+<br/>
+</body>
+</html>

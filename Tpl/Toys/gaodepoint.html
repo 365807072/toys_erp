@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>派单地图</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript"
+            src="http://webapi.amap.com/maps?v=1.4.3&key=076f8bd9457613f940df9cc73a344f39"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/javascript">
+    //初始化地图对象，加载地图
+    var map = new AMap.Map("container", {resizeEnable: true});
+    var lnglats = [
+            <foreach name="res" item="vo" >
+            {$vo.latlng}
+    </foreach>
+    ];
+    var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+
+    var data = {$new_res};
+    for (var i in data) {
+        var marker = new AMap.Marker({
+            icon:  new AMap.Icon({
+                image: data[i].diff_img,
+                size: new AMap.Size(25, 43),  //图标大小
+                imageSize: new AMap.Size(25,43)
+            }) ,
+            position: lnglats[i],
+            map: map
+        });
+        marker.content = data[i].userinfo;
+        marker.on('click', markerClick);
+        marker.emit('click', {target: marker});
+    }
+
+
+    function markerClick(e) {
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+    map.setFitView();
+</script>
+</body>
+</html>

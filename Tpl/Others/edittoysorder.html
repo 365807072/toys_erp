@@ -1,0 +1,58 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>编辑玩具订单</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){ 
+	$("#bus_info").show();
+
+	$('.source_info').change(function(){ 
+		var up_source=$('input:radio[name="source"]:checked').val();
+		if(up_source==1) {
+			$("#bus_info").hide();
+		} else {
+			$("#bus_info").show();
+		}	
+	}) 
+}) 
+</script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑玩具订单</p>
+<!--<a target="_blank" href="http://checkpic.meimei.yihaoss.top/Toys/toyspayment">玩具订单赔付</a>-->
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<!--<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editToysOrder">-->
+		<!--来源：<input type="radio" name="source" value="0" class="source_info" checked="checked" >换玩具-->
+        <!--原来订单编号状态【玩乐中-》待取回】：<input type="radio" name="old_toys_number_status" value="1" checked="checked" >需要-->
+        <!--<input type="radio" name="old_toys_number_status" value="2">不需要<br>-->
+
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editToysOrderNew">
+		<input type="radio" name="source" value="1" class="source_info" checked="checked">换编号<br>
+		订单ID:<input type="text" name="order_id" value="" ><br>
+		<div id="bus_info">
+			用户ID:<input type="text" name="login_user_id" value="" ><br>
+			换玩具ID:<input type="text" name="business_id" value="" ><br>
+		</div>
+		编号:<input type="text" name="toys_number" value="" >（'准备中'不需要，其它都需要）<br>
+	   	<input type='submit' value='编辑'>
+		<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

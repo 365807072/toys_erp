@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{:C('TITLE')}</title>
+<style type="text/css">
+
+body {
+	margin:0px auto;
+	
+}
+
+</style>
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+	
+	function logout(){
+		var result =	confirm("确定退出?");
+		if(result){
+			$.ajax({
+				type:"GET",
+				url:"logout",
+				data:{},
+				dataType:'json',
+				success:function(data){
+					var jsonData  = eval(data);
+					if(jsonData.result){
+						top.location.href="/LoginTo/loginto.html";
+					}					
+
+				}
+			});
+		}else{
+			return;
+		}
+	}
+</script>
+
+</head>
+
+<body class = "mainBody">
+<table width="198" border="0" cellpadding="0" cellspacing="0" class="left-table01">
+  <tr>
+    <td>
+   		<!-- 用户信息开始 -->
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+		  <tr>
+			<td width="207" height="55" background="/Tpl/Public/images/nav01.gif">
+				<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+				  <tr>
+					
+				    <td width="75%" height="22" class="left-font01">欢迎您：<span class="left-font02"><?php echo $_SESSION['username']; ?></span></td>
+				  </tr>
+				  <tr>
+					<td height="22" class="left-font01">
+						 <!-- [&nbsp;<a href="/Login/login.html"  target="_top" class="left-font01">退出</a>&nbsp;] -->
+ 					    <input type="button" name="Submit" value="退出" class="right-button01" onclick="logout()"/>
+				</td> 
+				  </tr>
+				</table>
+			</td>
+		  </tr>
+		</table>
+	
+		
+		<!--  审核列表开始 -->   
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="left-table03">
+          <tr>
+            <td height="29">
+				<table width="75%" border="0" align="right" cellpadding="0" cellspacing="0">
+					<tr>
+						<td width="92%">
+							<a href="postlist.html" target="mainFrame" class="left-font03" >话题列表</a>
+						</td>
+					</tr>
+				</table>
+			</td>
+          </tr>		  
+        </table>
+      
+		<!--  审核列表结束    -->
+
+	  </td>
+  </tr>
+   <tr>
+  </tr>
+</table>
+</body>
+</html>

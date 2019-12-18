@@ -1,0 +1,44 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--编辑微信订单</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑微信订单 </p>
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST' action="http://checkpic.meimei.yihaoss.top/index.php/Index/wxupdate" >       
+        &nbsp;&nbsp;&nbsp;&nbsp;消费状态：
+        <select name="status" style=" width:auto;" >
+            <option value="0">请选择状态</option>
+            <option value="1" <if condition="$orderList.status eq 1 ">  selected</if>>未消费</option>
+            <option value="2" <if condition="$orderList.status eq 2 ">  selected</if>>未支付</option>
+            <option value="3" <if condition="$orderList.status eq 3 ">  selected</if>>已完成</option>
+            <option value="4" <if condition="$orderList.status eq 4 ">  selected</if>>退款中</option>
+            <option value="5" <if condition="$orderList.status eq 5 ">  selected</if>>已退款</option>
+            <option value="6" <if condition="$orderList.status eq 6 ">  selected</if>>待上门付款</option>
+        </select>
+       <br>
+<input type="hidden" name="id" value="{$orderList.id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

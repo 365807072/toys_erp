@@ -1,0 +1,78 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <style>
+        th{
+            font-size:15px;
+        }
+    </style>
+    <script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+    <script language = "JavaScript" type = "text/javascript">
+
+    </script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 路线订单状态</p>
+<div class="check_list">{$page}</div>
+
+<table width = "100%"  border="1">
+    <tr height = "10" >
+        <th width = "10%" align = "center">路线</th>
+        <th width = "10%" align = "center">操作时间</th>
+        <th width = "5%" align = "center">配送员</th>
+        <th width = "5%" align = "center">用户id</th>
+        <th width = "10%" align = "center">状态</th>
+        <th width = "10%" align = "center">玩具</th>
+        <th width = "5%" align = "center">取送状态</th>
+        <th width = "10%" align = "center">地址</th>
+        <!--<th width = "5%" align = "center">单量</th>-->
+        <!--<th width = "5%" align = "center">编辑</th>-->
+        <th width = "10%" align = "center">备注</th>
+
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='10%' align = "center">{$vo.line_title}</td>
+            <td width ='10%' align = "center">{$vo.post_create_time}</td>
+            <td width ='5%' align = "center">{$vo.postman_name}</td>
+            <td width ='5%' align = "center">{$vo.user_id}</td>
+            <td width ='10%' align = "center">{$vo.status_name}</td>
+            <td width ='10%' align = "center">{$vo.business_title}</td>
+            <td width ='5%' align = "center">{$vo.send_back_name}</td>
+            <td width ='10%' align = "center">{$vo.address}</td>
+            <!--<td width ='5%' align = "center">{$vo.final_num}</td>-->
+            <!--<td width ='5%' align = "center">-->
+                <!--<form action="http://checkpic.meimei.yihaoss.top/Toys/gaodepointlineinfoendedit" onsubmit="return confirm('确定更改？')">-->
+                    <!--<input type="text" name="final_num" value="{$vo.final_num}">-->
+                    <!--<input type="hidden" name="source" value="1">-->
+                    <!--<input type="hidden" name="root_img_id" value="{$root_img_id}">-->
+                    <!--<input type="hidden" name="user_id" value="{$vo.user_id}">-->
+                    <!--<input type="submit" value="更改单量">-->
+                <!--</form>-->
+            <!--</td>-->
+            <td width ='10%' align = "center">
+                <form action="http://checkpic.meimei.yihaoss.top/Toys/gaodepointlineinfoendedit" onsubmit="return confirm('确定更改？')">
+                    <textarea name="remark" cols="13" rows="2">{$vo.remark}</textarea>
+                    <input type="hidden" name="source" value="2">
+                    <input type="hidden" name="root_img_id" value="{$root_img_id}">
+                    <input type="hidden" name="line_id" value="{$vo.line_id}">
+                    <input type="submit" value="更改备注">
+                </form>
+            </td>
+
+        </tr>
+    </foreach>
+</table>
+
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

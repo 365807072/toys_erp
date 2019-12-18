@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--发布话题</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('login_user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var login_user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				select.options.add(new Option(nick_name,login_user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			success: successProcess,
+		});
+		
+ }
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布话题 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShow/PublicPost">
+
+	&nbsp;&nbsp;&nbsp;&nbsp;<select name="now_province" id="now_province" style=" width:auto;" onchange="province(this);" onload="province(this);" >
+	<option value="0">请选择用户</option>
+	 <option value="1">管理级用户</option>
+	  <option value="2">樊颖</option>
+	 
+	  <option value="4">老刘</option>
+	  <option value="5">蚊子</option>
+	  <option value="6">老邹</option>
+	  
+	  <option value="8">李静</option>
+	
+		<option value="20">话题专用</option>
+		<option value="21">海燕</option>
+		<option value="22">杨芳</option>
+		<option value="25">美艳</option>
+		<option value="26">方蕾</option>
+		<option value="27">张明</option>
+	 </select>
+	<select name="login_user_id" id="login_user_id" style=" width:auto;" >
+      <option value="0">发布用户</option>
+    </select>	<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;标题：<textarea name="img_title" value="" cols="100" rows="2"></textarea><br>
+ 	&nbsp;&nbsp;&nbsp;&nbsp;话题描述:<textarea name="img_desc" value="" cols="100" rows="10"></textarea><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片1：<input type="file" name="img1" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片2：<input type="file" name="img2" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片3：<input type="file" name="img3" value=""><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;图片4：<input type="file" name="img4" value=""><br>
+
+	选择分类：
+	<select name="post_class">
+		  <option value ="0" selected>无</option>
+		  <option value ="1">成长与活动</option>
+		  <option value="2">育儿知识</option>
+		  <option value="3">时尚情感</option>
+		  <option value="4">辣妈厨房</option>
+	</select><br>
+	
+	<input type="radio" name="is_group" value="1"><!--checkbox-->设置成群&nbsp;&nbsp;&nbsp;&nbsp;群主题：<input type="text" name="group_name" value="">
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="type" value="2">同时分享到秀秀<br>
+        <input type="radio" name="is_group" value="2">设置成商家&nbsp;&nbsp;&nbsp;&nbsp;
+        商家标题：
+        <select name="business_id">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select><br>
+        <input type="radio" name="is_group" value="3">设置群中商家&nbsp;&nbsp;&nbsp;&nbsp;
+           群标题：
+        <select name="group_id">
+        	<option value="0">请选择群</option>
+            <foreach name="groupList" item="vo" >
+                <option value="{$vo.id}">{$vo.group_name}</option>
+            </foreach>
+        </select>
+        商家标题：
+        <select name="business_ids">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select>
+        <br>
+
+
+        <input type="radio" name="is_group" value="4">设置群中商家列表&nbsp;&nbsp;&nbsp;&nbsp;
+           群标题：
+        <select name="group_ids">
+        	<option value="0">请选择群</option>
+            <foreach name="groupList" item="vo" >
+                <option value="{$vo.id}">{$vo.group_name}</option>
+            </foreach>
+        </select>
+        <br>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

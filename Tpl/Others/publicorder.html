@@ -1,0 +1,53 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--添加订单</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 添加订单 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+    <form enctype="multipart/form-data" method ='GET' action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV17/PublicOrder" > 
+    <input type="hidden" name="r" value="BabyShowV17/PublicOrder">
+    <include file="Others:usermanagement" />
+        &nbsp;&nbsp;&nbsp;&nbsp;标题：{$businessList.business_title}<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;选择套餐：<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="package" value="1" checked="checked">一————秀秀价：{$businessList.business_babyshow_price1}；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价：{$businessList.business_market_price1}。<br/>
+
+        <notempty name="businessList.business_babyshow_price2">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="package" value="2">二————秀秀价：{$businessList.business_babyshow_price2}；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价：{$businessList.business_market_price2}。<br/>
+        </notempty>
+
+        <notempty name="businessList.business_babyshow_price3">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="package" value="3">三————秀秀价：{$businessList.business_babyshow_price3}；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价：{$businessList.business_market_price3}。<br/>
+        </notempty>
+
+        <notempty name="businessList.business_babyshow_price4">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="package" value="4">四————秀秀价：{$businessList.business_babyshow_price4}；&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价：{$businessList.business_market_price4}。<br/>
+        </notempty>
+       <input type="hidden" name="order_role" value="0">
+        <input type="hidden" name="business_id" value="{$businessList.id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='添加'>
+   </form>
+
+</table>
+<br/>
+
+
+
+
+</body>
+</html>

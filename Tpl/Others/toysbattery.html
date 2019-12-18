@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'>玩具电池</p>
+
+<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/ToysBattery" method="post">
+    <p style="color:red;">如玩具需要电池，在对应电池型号之后填写对应数量</p><br>
+    <input type="hidden" value="{$res.id}" name="id">
+    1号电池：<input type="text" name="battery_number1" value="{$res.battery_number1}"><br>
+    2号电池：<input type="text" name="battery_number2" value="{$res.battery_number2}"><br>
+    3号电池：<input type="text" name="battery_number3" value="{$res.battery_number3}"><br>
+    4号电池：<input type="text" name="battery_number4" value="{$res.battery_number4}"><br>
+    5号电池：<input type="text" name="battery_number5" value="{$res.battery_number5}"><br>
+    6号电池：<input type="text" name="battery_number6" value="{$res.battery_number6}"><br>
+    7号电池：<input type="text" name="battery_number7" value="{$res.battery_number7}"><br>
+    纽扣电池：<input type="text" name="battery_number8" value="{$res.battery_number8}"><br>
+    <input type="submit" value="确定">
+</form>
+
+
+</body>
+</html>

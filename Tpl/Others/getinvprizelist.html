@@ -1,0 +1,55 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 邀请列表[获礼品或卡]&nbsp;&nbsp;&nbsp;&nbsp;<a href="toyscardactivity.html">团购列表</a></p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Others/getinvprizelist" >    
+        主动邀请用户ID：<input type="text" name="invite_user_id" value="{$invite_user_id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "5%" align = "center">ID</th>
+        <th width = "10%" align = "center">被邀请用户信息</th>
+        <th width = "10%" align = "center">主动邀请用户信息</th>
+        <th width = "5%" align = "center">邀请状态</th>
+        <th width = "5%" align = "center">是否领礼品</th>
+        <th width = "5%" align = "center">领礼品信息</th>
+		<th width = "5%" align = "center">操作</th>	
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='5%' align = "center">{$vo.id}</td>
+            <td width ='10%'  align = "center">
+            {$vo.user_id}<br/>{$vo.user_name}<br/>{$vo.mobile}
+            </td>
+            <td width ='10%'  align = "center">
+                {$vo.invite_user_id}<br/>{$vo.invite_user_name}
+            </td>
+            <td width ='5%' align = "center">{$vo.status_name}</td>
+            <td width ='5%' align = "center">{$vo.card_name}</td>
+            <td width ='5%' align = "center">{$vo.prize_info}</td>
+			<td width ='5%' align = "center">
+                <a href="http://checkpic.meimei.yihaoss.top/Others/operator_invPrizestate?imgid={$vo.id}">删除</a>
+            </td>
+
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 电池价格列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="pubbateryprice">添加电池</a></p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getbaterypricelist" >
+        电池类型：
+        <select name="search_type">
+            <option value='0'>无</option>
+            <option value='1' <if condition="$search_type eq 1 "> selected</if> >1号电池</option>
+            <option value='2' <if condition="$search_type eq 2 "> selected</if> >2号电池</option>
+            <option value='3' <if condition="$search_type eq 3 "> selected</if> >3号电池</option>
+            <option value='4' <if condition="$search_type eq 4 "> selected</if> >4号电池</option>
+            <option value='5' <if condition="$search_type eq 5 "> selected</if> >5号电池</option>
+            <option value='6' <if condition="$search_type eq 6 "> selected</if> >6号电池</option>
+            <option value='7' <if condition="$search_type eq 7 "> selected</if> >7号电池</option>
+            <option value='8' <if condition="$search_type eq 8 "> selected</if> >纽扣电池</option>
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        电池品牌：
+        <select name="search_brand">
+            <option value='0'>无</option>
+            <option value='1' <if condition="$search_brand eq 1 "> selected</if> >华太</option>
+            <option value='2' <if condition="$search_brand eq 2 "> selected</if> >南孚</option>
+            <option value='3' <if condition="$search_brand eq 3 "> selected</if> >双鹿</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type='submit' value='搜索'>
+   </form>
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "10%" align = "center">电池类型</th>
+		<th width = "10%" align = "center">电池品牌</th>
+		<th width = "10%" align = "center">零售价</th>
+        <th width = "10" align = "center">采购价</th>
+        <th width = "5" align = "center">编辑</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='10%' align = "center">{$vo.battery_type}</td>
+            <td width ='10%' align = "center">{$vo.battery_brand}</td>
+			<td width ='10%' align = "center">{$vo.price}</td>
+            <td width ='10%' align = "center">{$vo.market_price}</td>
+            <td width ='5%' align = "center">
+                <a href="/Toys/pubbateryprice?id={$vo.id}" target="_black" >编辑</a><br/>
+                <a href="/Toys/operator_baterrypricestate?imgid={$vo.id}"  >删除</a>
+            </td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

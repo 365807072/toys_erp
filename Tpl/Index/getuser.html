@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--发布值得买</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				 ///obj.options.add(new Option("text","value"));
+				select.options.add(new Option(nick_name,user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			//data:{"id":"user_id","nick_name":"nick_name"},
+			success: successProcess,
+		});
+		
+ }
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布值得买 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV12/BuyImageV1">
+	
+	<select name="now_province" id="now_province" style=" width:auto;" onchange="province(this);">
+	<option value="0">请选择用户</option>
+      <option value="1">管理级用户</option>
+	  <option value="2">樊颖</option>
+	  <option value="3">梅子</option>
+	  <option value="4">老刘</option>
+	  <option value="5">蚊子</option>
+	  <option value="6">老邹</option>
+	 
+	  <option value="8">李静</option>
+	  
+		<option value="20">话题专用</option>
+		<option value="21">海燕</option>
+		<option value="22">杨芳</option>
+		<option value="25">美艳</option>
+		<option value="26">方蕾</option>
+		<option value="27">张明</option>
+	  </select>
+	<select name="user_id" id="user_id" style=" width:auto;" >
+      <option value="0">发布用户</option>
+    </select>	
+
+   	<input type='submit' value='发布'>
+	<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

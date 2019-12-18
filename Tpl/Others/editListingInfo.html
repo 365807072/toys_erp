@@ -1,0 +1,99 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>热点【和秀秀合并后】--编辑话题</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('login_user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var login_user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				select.options.add(new Option(nick_name,login_user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			success: successProcess,
+		});
+		
+ }
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 热点【和秀秀合并后】--编辑话题 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editListing">
+		此帖子跳转到另一帖子ID:<input type="text" name="jump_id" value="{$res.jump_id}"><br><br>
+		发布时间:<input type="text" name="create_time" value="{$res.create_time}" >（例：2016-01-24 00:00:00）<br>
+		标题:<textarea name="img_title" value="" cols="100" rows="5">{$res.img_title}</textarea><br>
+	 	描述:<textarea name="img_desc" value="" cols="100" rows="5">{$res.img_description}</textarea><br>
+	 	首页展示方式:<input type="radio" name="index_show" value="0" <if condition="$res.index_show eq 0 "> checked </if> >小图&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="index_show" value="1" <if condition="$res.index_show eq 1 "> checked </if> >大图<br>
+
+	 	<p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        首页封面图：<input type="file" name="index_cover" value=""> 
+            <notempty name="res.index_cover"> 
+                <img  src ="{$res.index_cover}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+		<p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        图片一：<input type="file" name="img1" value=""> 
+            <notempty name="res.pic1"> 
+                <img  src ="{$res.pic1}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        图片二：<input type="file" name="img2" value=""> 
+            <notempty name="res.pic2"> 
+                <img  src ="{$res.pic2}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        图片三：<input type="file" name="img3" value=""> 
+            <notempty name="res.pic3"> 
+                <img  src ="{$res.pic3}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        <p style="width:1000px;height:150px;border-bottom:1px dashed #111;">
+        图片四：<input type="file" name="img4" value=""> 
+            <notempty name="res.pic4"> 
+                <img  src ="{$res.pic4}" style="width:120px;height:120px;"/>
+            </notempty>            
+        </p>
+        
+	<input type="hidden" name="id" value="{$res.id}">
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

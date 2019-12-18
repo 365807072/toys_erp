@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+</script>
+    <script language="javascript">
+        function _submit(){
+//            document.form1.action = "http://checkpic.meimei.yihaoss.top/Toys/gaodepoint.html";
+//            document.form1.method = "get"; //
+//            document.form1.target = "_blank"; //_self //_parent //_top
+//            document.form1.submit();
+
+            document.form1.action = "http://checkpic.meimei.yihaoss.top/Toys/gaodepointtoysinfo.html";
+            document.form1.method = "get"; //
+            document.form1.target = "_blank";//_self //_parent //_top
+            document.form1.submit();
+        }
+
+        function _submit2(){
+            document.form2.action = "http://checkpic.meimei.yihaoss.top/Toys/gaodepoint.html";
+            document.form2.method = "get"; //
+            document.form2.target = "_blank"; //_self //_parent //_top
+            document.form2.submit();
+
+            document.form2.action = "http://checkpic.meimei.yihaoss.top/Toys/gaodepointtoysinfo.html";
+            document.form2.method = "get"; //
+            document.form2.target = "_blank";//_self //_parent //_top
+            document.form2.submit();
+        }
+    </script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 订单筛选 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+<form name="form2">
+    <input type="hidden" name="allofthem" value="1">
+        <select name="dayall">
+            <option value="0">全部</option>
+            <option value="7">已超过7天</option>
+            <option value="5">已超过5天</option>
+            <option value="4">已超过4天</option>
+            <option value="3">已超过3天</option>
+            <option value="2">已超过2天</option>
+            <option value="1">已超过1天</option>
+            <option value="8">1天内</option>
+        </select> &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="查询所有" onclick="_submit2()">
+</form>
+<a href="gaodepointtoysinfoneedtest.html" target="_blank">查询异常订单</a>
+<br>
+<hr>
+<br>
+
+<form name="form1">
+   地址搜索： <input type="text" name="address" value="">&nbsp;&nbsp;&nbsp;<input type="button" value="查询" onclick="_submit()"><br><br>
+    <foreach name="res" item="vo" >
+        <input type="checkbox" name="region_id[]" value="{$vo.city_id}" id="{$vo.city_id}"><label for="{$vo.city_id}">{$vo.city_name}</label>
+        <select name="day{$vo.city_id}">
+            <option value="0">全部</option>
+            <option value="7">已超过7天</option>
+            <option value="5">已超过5天</option>
+            <option value="4">已超过4天</option>
+            <option value="3">已超过3天</option>
+            <option value="2">已超过2天</option>
+            <option value="1">已超过1天</option>
+            <option value="8">1天内</option>
+        </select><br>&nbsp;&nbsp;
+        <foreach name="vo.children" item="child" >
+            &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="region_id[]" value="{$child.city_id}" id="{$child.city_id}"><label for="{$child.city_id}">{$child.city_name}</label>
+            <select name="day{$child.city_id}">
+                <option value="0">全部</option>
+                <option value="7">已超过7天</option>
+                <option value="5">已超过5天</option>
+                <option value="4">已超过4天</option>
+                <option value="3">已超过3天</option>
+                <option value="2">已超过2天</option>
+                <option value="1">已超过1天</option>
+                <option value="8">1天内</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        </foreach>
+        <br><br>
+    </foreach>
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="查询" onclick="_submit()">
+</form>
+
+
+</body>
+</html>

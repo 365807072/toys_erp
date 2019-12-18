@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 超级伙伴 &nbsp;&nbsp;&nbsp;<a href="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/toysActivityPartnerEditDel&id={$res.id}  " onclick="return confirm('确定删除？')" >删除此条信息</a></p>
+
+
+<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/toysActivityPartnerEdit" method ='POST' onsubmit="return confirm('确定提交？')">
+    <input type="hidden" name="id" value="{$res.id}"><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;用户ID：<input type="text" name="user_id" value="{$res.user_id}"><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;用户姓名：<input type="text" name="user_name" value="{$res.user_name}"><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;手机号码：<input type="text" name="mobile" value="{$res.mobile}"><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;邀请号码：<input type="text" name="invite_num" value="{$res.invite_num}" disabled><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;优惠金额：<input type="text" name="invite_bonus" value="{$res.invite_bonus}"><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;开始时间：<input type="text" name="start_time" value="{$res.start_time}"><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;结束时间：<input type="text" name="end_time" value="{$res.end_time}"><br><br>
+    &nbsp;&nbsp;&nbsp;备注：<input type="text" name="remark" value="{$res.remark}"><br><br>
+    &nbsp;&nbsp;&nbsp;等级：<select name="level">
+                        <option value="1" <if condition="$res.level eq 1 "> selected</if> >一阶</option>
+                        <option value="2" <if condition="$res.level eq 2 "> selected</if> >二阶</option>
+                        <option value="3" <if condition="$res.level eq 3 "> selected</if> >三阶</option>
+                        <option value="4" <if condition="$res.level eq 4 "> selected</if> >成长伙伴</option>
+                    </select>
+    <br><br>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交">
+</form>
+
+
+
+</body>
+</html>

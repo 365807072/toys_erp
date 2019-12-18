@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){
+            $("#search_form").submit();
+        });
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 赔付订单详情 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<hr>
+
+    <foreach name="res" item="vo" >
+        <if condition="$vo.root_img_id eq 0 ">
+            <form enctype="multipart/form-data" method ='POST' action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/EditPaymentInfo" onsubmit="return confirm('确定更改吗？')">
+                主图信息：
+                <foreach name="vo.business_pics" item="vv" >
+                    <img src="https://api.meimei.yihaoss.top/{$vv}" alt="" style="width:150px;height:150px;" >
+                </foreach><br>
+                封面图：<input type="file" name="img1" value=""><br>
+                玩具标题：<input type="text" name="business_title" value="{$vo.business_title}"><br>
+                赔付原因：<input type="text" name="business_des" value="{$vo.business_des}"><br>
+                最终赔付价格：<input type="text" name="member_price" value="{$vo.member_price}"><br>
+                <input type="hidden" name="source" value="1">
+                <input type="hidden" name="order_id" value="{$search_order_id}">
+                <input type="hidden" name="id" value="{$vo.id}"><br>
+                <input type='submit' value='更改'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+            </form>
+        </if>
+
+    </foreach>
+<hr>
+        <foreach name="res" item="vo" >
+            <if condition="$vo.root_img_id neq 0 ">
+                {$vo.business_des}
+                <form enctype="multipart/form-data" method ='POST' action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/EditPaymentInfo" onsubmit="return confirm('确定更改吗？')">
+                    <foreach name="vo.business_pics" item="vv" >
+                        <img src="https://api.meimei.yihaoss.top/{$vv}" alt="" style="width:150px;height:150px;" >
+                    </foreach><br>
+                    修改图：<br><input type="file" name="img1" value=""><br>
+                    <input type="file" name="img2" value=""><br>
+                    <input type="file" name="img3" value=""><br>
+                    <input type="hidden" name="order_id" value="{$search_order_id}">
+                    <input type="hidden" name="source" value="2">
+                    <input type="hidden" name="id" value="{$vo.id}"><br>
+                    <input type='submit' value='更改'>&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+                    <hr>
+                </form>
+            </if>
+
+        </foreach>
+
+
+</body>
+</html>

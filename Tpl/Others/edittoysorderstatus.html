@@ -1,0 +1,141 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){
+	 window.onscroll=function(){
+		 var sl=-Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+		 document.getElementById('head').style.left=sl+'px';
+
+	 };
+}) 
+</script>
+
+
+</head>
+
+<body  class = "mainBody" id="mainBody">
+<div style="position:fixed; left:0px; top:0px; z-index:1; width:150%;" id="head">
+	<p class='tablestyle_title' style="width:150%;">
+		玩具订单状态编辑
+	</p>
+</div>
+<div style="height:40px;"></div>
+
+<p style="font-size:20px;color:red;">此订单备注</p>
+<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV20/WebToysOrderRemark" method="post" onsubmit="return(confirm('确定提交吗？'))">
+	此订单备注： <textarea name="remark" cols="30" rows="5">{$remark_res.remark}</textarea>
+	<input type="hidden" name="order_id" value="{$remark_res.id}">
+	<br><input type="submit" value="提交">
+</form>
+<br><hr><br>
+<!--玩具start-->
+<if condition="$is_card_status eq 0 ">
+	<p style="font-size:20px;color:red;">操作订单到下一步状态</p>
+	<p>玩具名：{$business_title} </p>
+	<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowVxcx1/PubOrderDetail" method="post" onsubmit="return(confirm('确定提交到下一步吗？'))">
+		订单ID：<input type="text" name="order_id" value="{$order_id}" ><br>
+		状态码：<input type="text" name="status" value="{$status}" ><br>
+		状态名：<input type="text" name="status_name" value="{$status_name}" ><br>
+		用户ID：<input type="text" name="user_id" value="{$user_id}" ><br>
+		客服ID：<input type="text" name="login_userid" value="309983" ><br>
+		<input type="submit" value="下一步">
+	</form>
+
+
+	<br>
+
+
+
+		<hr>
+		<br>
+		<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/toysToysuporderSize" method="post" onsubmit="return confirm('确定操作?')">
+			&nbsp;&nbsp;&nbsp;更改此订单星标状态：
+			<select name="is_size">
+				<option value="1" <if condition="$is_size eq 1"> selected</if> >星标</option>
+				<option value="0" <if condition="$is_size eq 0"> selected</if> >非星标</option>
+			</select>
+			<input type="hidden" name="order_id" value="{$order_id}" >
+			&nbsp;&nbsp;&nbsp;<input type="submit" value="确认">
+		</form>
+
+	<!--<p style="font-size:20px;color:red;">送货中用户不换玩具</p>-->
+	<!--<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/EditToysOrderStatus" method="post" onsubmit="return(confirm('确定提交吗？'))">-->
+		<!--&lt;!&ndash;订单ID：<input type="text" name="order_id" value="{$order_id}" ><br>&ndash;&gt;-->
+		<!--&lt;!&ndash;状态码：<input type="text" name="status" value="{$status}" ><br>&ndash;&gt;-->
+		<!--&lt;!&ndash;状态名：<input type="text" name="status_name" value="{$status_name}" ><br>&ndash;&gt;-->
+		<!--用户ID：<input type="text" name="user_id" value="{$user_id}" ><br>-->
+		<!--客服ID：<input type="text" name="login_userid" value="309983" ><br>-->
+		<!--用户手里的玩具(待取回)：<select name="order_id_old">-->
+		<!--<foreach name="res_old" item="res_old">-->
+			<!--<option value="{$res_old.id}">{$res_old.business_title}</option>-->
+		<!--</foreach>-->
+	<!--</select>-->
+		<!--&#45;&#45;&ndash;&gt;-->
+		<!--用户不要的玩具(送货中)：<select name="order_id_new">-->
+		<!--<foreach name="res_new" item="res_new">-->
+			<!--<option value="{$res_new.id}">{$res_new.business_title}</option>-->
+		<!--</foreach>-->
+	<!--</select>-->
+
+		<!--<br><input type="submit" value="提交">-->
+	<!--</form>-->
+	<br><hr><br>
+
+	<p style="font-size:20px;color:red;">准备中用户不换玩具</p>
+	<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV77/EditToysOrderStatus" method="post" onsubmit="return(confirm('确定提交吗？'))">
+		用户ID：<input type="text" name="user_id" value="{$user_id}" ><br>
+		客服ID：<input type="text" name="login_userid" value="309983" ><br>
+		用户手里的玩具(待取回)：<select name="order_id_old_pre">
+		<foreach name="res_old_pre" item="res_old_pre">
+			<option value="{$res_old_pre.id}">{$res_old_pre.business_title}</option>
+		</foreach>
+	</select>
+		---->
+		用户不要的玩具(准备中)：<select name="order_id_pre">
+		<option value="0">恢复到玩乐中</option>
+		<foreach name="res_pre" item="res_pre">
+			<option value="{$res_pre.id}">{$res_pre.business_title}</option>
+		</foreach>
+	</select>
+
+		<br><input type="submit" value="提交">
+	</form>
+	<br><hr><br>
+
+</if >
+<!--玩具end-->
+
+<!--卡start-->
+<if condition="$is_card_status eq 1 ">
+
+	<p style="font-size:20px;color:red;">更改会员卡金额</p>
+	<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/EditCardPricenum" method="post" onsubmit="return(confirm('确定更改会员卡金额吗？'))">
+		<input type="hidden" name="order_id" value="{$order_id}">
+		<input type="hidden" name="user_id" value="{$user_id}" >
+		更改后的金额：<input type="text" name="price" value="" ><br>
+		<input type="submit" value="更改">
+	</form>
+
+</if >
+<!--卡end-->
+
+
+</body>
+</html>

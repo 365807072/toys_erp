@@ -1,0 +1,50 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--编辑群</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'>编辑群 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/editGroup">
+	群名：<textarea name="group_name" value="" cols="100" rows="2">{$specialList.group_name}</textarea><br>
+    描述：<textarea name="description" value="" cols="100" rows="2">{$specialList.description}</textarea><br>
+    商家：
+     <select name="business_id">
+            <option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}"  <if condition="$specialList.business_id eq $vo.id "> selected</if> >{$vo.business_title}</option>
+            </foreach>
+        </select><br>
+    商家账号：<input type="radio" name="is_user" value="0" <if condition="$specialList.is_user neq 1 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_user" value="1" <if condition="$specialList.is_user eq 1 "> checked </if>>是<br>
+
+    推荐状态：<input type="radio" name="is_recommend" value="0" <if condition="$specialList.is_recommend neq 1 "> checked </if> >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_recommend" value="1" <if condition="$specialList.is_recommend eq 1 "> checked </if>>是<br>
+    <div style="width:1200px;height:150px;border-bottom:1px dashed #111;">
+        封面：<input type="file" name="cover" value="">
+            <notempty name="specialList.cover"> 
+                <img  src ="{$specialList.cover}" style="width:120px;height:120px;"/>
+            </notempty>
+    </div>
+	<input type="hidden" name="group_id" value="{$specialList.id}">
+   	<input type='submit' value='编辑'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

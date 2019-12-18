@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--编辑合作商家</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type = "text/javascript">
+
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑合作商家 </p>
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST' action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/EditCooperation" >
+        &nbsp;&nbsp;&nbsp;&nbsp;用户：{$businessList.user_id}-{$businessList.nick_name}-{$businessList.mobile}-{$businessList.email}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;用户状态：
+        <input type="radio" name="user_state"  value="0" <if condition="$businessList.user_state eq 0 "> checked</if> > 商家
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="user_state"  value="1" <if condition="$businessList.user_state eq 1 "> checked</if> > 用户,推荐此商家<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;合作商家状态：
+        <input type="radio" name="cooperation_state"  value="0" <if condition="$businessList.cooperation_state eq 0 "> checked</if> > 线下商家
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="cooperation_state"  value="1" <if condition="$businessList.cooperation_state eq 1 "> checked</if> > 线上商家
+         <input type="radio" name="cooperation_state"  value="2" <if condition="$businessList.cooperation_state eq 2 "> checked</if> > 区域合作
+         <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;合作名称：<textarea name="cooperation_name" value="" cols="100" rows="2">{$businessList.cooperation_name}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;合作描述：<textarea name="cooperation_description" value="" cols="100" rows="3">{$businessList.cooperation_description}</textarea><br>
+
+        &nbsp;&nbsp;&nbsp;&nbsp;电话：<input type="text" name="mobile" value="{$businessList.mobile}"><br> 
+        &nbsp;&nbsp;&nbsp;&nbsp;邮箱：<textarea name="email" value="" cols="100" rows="3">{$businessList.email}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;地址：<textarea name="address" value="" cols="100" rows="3">{$businessList.address}</textarea><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;审核状态：
+        <input type="radio" name="auditing_state"  value="0" <if condition="$businessList.auditing_state eq 0 "> checked</if> > 未审核
+        &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="radio" name="auditing_state"  value="1" <if condition="$businessList.auditing_state eq 1 "> checked</if> > 已审核<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;审核描述：<textarea name="auditing_description" value="" cols="100" rows="3">{$businessList.auditing_description}</textarea><br>
+
+<input type="hidden" name="id" value="{$businessList.id}">
+
+ <div id="container" style="display: none;"></div>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='编辑'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+
+
+
+<br/>
+</body>
+</html>

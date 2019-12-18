@@ -1,0 +1,80 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+
+function province(obj){
+		
+		var province=obj.value;
+		if(province==0){
+			return;
+		}
+		var select = document.getElementById('user_id');
+		
+		var successProcess=function(data){
+			var selectOptions = select.options;  
+			var optionLength = selectOptions.length;  
+			for(var i=0;i <optionLength;i++)  
+			{  
+				select.removeChild(selectOptions[0]);  
+			}  
+			var dataArray = eval(data);
+			 for(var i = 0; i<dataArray.length;i++){
+				var user_id = dataArray[i]['id'];
+				var nick_name = dataArray[i]['nick_name'];
+				select.options.add(new Option(nick_name,user_id));
+			}
+		}
+		$.ajax({
+			type: 'GET',
+			url: "http://checkpic.meimei.yihaoss.top/Index/getUser1/cid/"+province,
+			success: successProcess,
+		});
+		
+ }
+
+</script>
+<body  class = "mainBody">
+ 	&nbsp;&nbsp;&nbsp;&nbsp;<select name="now_province" id="now_province" style=" width:auto;" onchange="province(this);">
+	<option value="0">请选择用户</option>
+      <option value="1">管理级用户</option>
+	  <option value="2">樊颖</option>
+	<option value="37">刘同艳</option>
+	  <!-- <option value="4">老刘</option> -->
+	  <option value="5">杜志改</option> <!-- 蚊子 -->
+	  <option value="6">老邹</option>
+	  <option value="8">李静</option>
+		<option value="20">话题专用</option>
+		<option value="21">海燕</option>
+		<!-- <option value="22">杨芳</option> -->
+		<option value="25">美艳</option>
+		<option value="26">杨芳</option>
+		<option value="27">李玉清</option> <!-- 张明 -->
+        <option value="28">朱晓娟</option>
+        <option value="29">李永利</option><!-- 闫小晴 -->
+        <option value="30">钟文东</option>
+        <option value="31">韦杰</option><!-- 毛彦臣 -->
+        <!-- <option value="32">左旭东</option> -->
+        <option value="33">荆哲</option><!-- 郎鹏 -->
+        <!-- <option value="34">李晨</option> -->
+        <!-- <option value="35">李永利</option> -->
+       <!--  <option value="36">单晓彤</option> -->
+        <option value="38">王春艳</option>
+        <option value="39">项晖</option><!-- 匡英南 -->
+        <option value="40">王贫</option>
+        <option value="41">张桐</option>
+        <option value="42">谭硕</option><!-- 张艳华 -->
+       <option value="43">刘国华</option>
+        <option value="44">刘瑞</option>
+        <option value="45">李嘉欣</option>
+        <option value="46">马思敏</option>
+        
+	  </select>
+	<select name="user_id" id="user_id" style=" width:auto;" >
+      <option value="0">发布用户</option>
+    </select><br>
+</body>
+</html>

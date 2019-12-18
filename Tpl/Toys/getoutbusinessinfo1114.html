@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+.move_class{
+	margin-left:50px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 玩具出库状况</p>
+	<div class="move_class" >
+	待取回：{$res.back_count}<br/>
+	备货中：{$res.prepare_count}<br/>
+	待派单[送]：{$res.send_count}<br/>
+	送货中[送]：{$res.ordering_count}<br/><br/><br/>
+	<div>
+		<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getoutbusinessinfo" >
+	         开始时间:<input type="text" name="start_time" value="{$start_time}" class="ui_timepicker">--
+	         结束时间:<input type="text" name="end_time" value="{$end_time}" class="ui_timepicker">
+	        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+	   </form>
+   <div>
+
+	下面{$res.show_time}操作<br/>
+	入库：{$res.in_count}<br/>
+	玩乐中：{$res.fun_count}<br/>
+	已取回：{$res.aready_back_count}<br/><br/>
+
+
+	玩具种类：{$res.toys_type_count}<br/>
+	玩具个数：{$res.toys_number_count}【出库：{$res.out_toys_number_count}、未出库：{$res.in_toys_number_count}】
+	</div>
+</body>
+</html>

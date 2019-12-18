@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布玩具</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 入库添加新编号</p>
+
+<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/PublicToysBusNewToysnumberin" method="post" onsubmit="return confirm('确定提交吗？')">
+
+            <input type="hidden" name="business_id" value="{$business_id}"><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;操作人：<select name="user_id" >
+				<option value="0">请选择</option>
+			<volist name="res" id="vo"  >
+				<option value="{$vo.user_id}">{$vo.user_name}</option>
+			</volist>
+			</select>
+	<br>
+	<p style="color:red;">&nbsp;&nbsp;&nbsp;&nbsp;*入库新增编号：入库时玩具编号在入库列表中不存在，新增编号，总库存不增加</p>
+	<br><br>
+	<input type="hidden" name="source" value="{$source}"><input type="hidden" name="new_id" value="{$new_id}">
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="确认提交">
+
+</form>
+
+</body>
+</html>

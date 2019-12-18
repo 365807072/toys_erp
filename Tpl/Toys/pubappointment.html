@@ -1,0 +1,80 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布预约玩具</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+	$(function () {
+        $(".ui_timepicker").datetimepicker({
+            
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        })
+    })
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布预约玩具</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/pubappointment">
+	发布人：
+	<select name="public_name">
+		<option value ="韦杰" <if condition="$res.public_name eq '韦杰' "> selected</if> >韦杰</option>
+		<option value="王贫" <if condition="$res.public_name eq '王贫' "> selected</if> >王贫</option>
+		<option value="谭硕" <if condition="$res.public_name eq '谭硕' "> selected</if> >谭硕</option>
+		<option value="李嘉欣" <if condition="$res.public_name eq '李嘉欣' "> selected</if> >李嘉欣</option>
+		<option value="张桐" <if condition="$res.public_name eq '张桐' "> selected</if> >张桐</option>
+		<option value="刘同艳" <if condition="$res.public_name eq '刘同艳' "> selected</if> >刘同艳</option>
+		<option value="樊颖" <if condition="$res.public_name eq '樊颖' "> selected</if> >樊颖</option>
+		<option value="美艳" <if condition="$res.public_name eq '美艳' "> selected</if> >美艳</option>
+		<option value="李玉清" <if condition="$res.public_name eq '李玉清' "> selected</if> >李玉清</option>
+		<option value="李永利" <if condition="$res.public_name eq '李永利' "> selected</if> >李永利</option>
+		<option value="马思敏" <if condition="$res.public_name eq '马思敏' "> selected</if> >马思敏</option>
+		<option value ="李静" <if condition="$res.public_name eq '李静' "> selected</if> >李静</option>
+		<option value="刘国华" <if condition="$res.public_name eq '刘国华' "> selected</if> >刘国华</option>
+		<option value="杜志改" <if condition="$res.public_name eq '杜志改' "> selected</if> >杜志改</option>
+		<option value="荆哲" <if condition="$res.public_name eq '荆哲' "> selected</if> >荆哲</option>
+		<option value="用户" <if condition="$res.public_name eq '用户' "> selected</if> >用户</option>
+	</select><br/>
+	预约用户：<input type="text" name="user_id" value="{$res.user_id}" ><br>
+	<if condition="$res.id GT 0 ">
+		预约时间：<input type="text" name="create_time" value="{$res.create_time}" class="ui_timepicker" ><br>
+	</if>
+
+	玩具名：<textarea name="toys_title" value="" cols="100" rows="2">{$res.toys_title}</textarea><br>
+	备注：<textarea name="remark" value="" cols="100" rows="2">{$res.remark}</textarea><br>
+	租赁状态：<input type="radio" name="is_rent" value="2" <if condition="($res.is_rent eq 2) or ($res.is_rent eq '') "> checked </if> >未租&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="is_rent" value="1" <if condition="$res.is_rent eq 1 "> checked </if> >已租&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="is_rent" value="3" <if condition="$res.is_rent eq 3 "> checked </if> >放弃&nbsp;&nbsp;&nbsp;&nbsp;
+	<!-- <input type="radio" name="is_rent" value="4" <if condition="$res.is_rent eq 4 "> checked </if> >重新排队&nbsp;&nbsp;&nbsp;&nbsp; 
+	<input type="radio" name="is_rent" value="5" <if condition="$res.is_rent eq 5 "> checked </if> >已通知&nbsp;&nbsp;&nbsp;&nbsp;-->
+	<input type="radio" name="is_rent" value="6" <if condition="$res.is_rent eq 6 "> checked </if> >处理中&nbsp;&nbsp;&nbsp;&nbsp;
+	<br>
+	<input type='hidden' name='id' value='{$res.id}'>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

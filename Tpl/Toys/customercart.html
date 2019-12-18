@@ -1,0 +1,54 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+ul{
+	width:100%;
+	display: -webkit-box;
+}
+	ul li{
+		width:120px;
+		list-style: none;
+		border-right:1px solid #8c8c8c;
+		border-bottom:1px solid #8c8c8c;
+	}
+
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){
+	 window.onscroll=function(){
+		 var sl=-Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+		 document.getElementById('head').style.left=sl+'px';
+
+	 };
+}) 
+</script>
+
+
+</head>
+
+<body  class = "mainBody" id="mainBody">
+<br>
+<p>清空用户购物车</p>
+		<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV20/UserToysCartdel" method="post"  onsubmit="return confirm('确定清空？')" >
+			用户ID：<input type="text" name="login_user_id" value="">
+			<input type="submit" value="清空">
+		</form>
+<script>
+
+</script>
+</body>
+</html>

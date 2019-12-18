@@ -1,0 +1,42 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+    <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <style>
+        th{
+            font-size:15px;
+        }
+    </style>
+    <script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+    <script language = "JavaScript" type = "text/javascript">
+
+    </script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑用户地址经纬度</p>
+
+<form action="https://api.meimei.yihaoss.top/index.php?r=BabyShowV7/GaodepointtoysInfoneededit" method="POST" onsubmit="return confirm('确定修改吗')">
+    <input type="hidden" name="user_id" value="{$user_id}"><input type="hidden" name="order_ids" value="{$order_ids}"><br>
+    经度：<input type="text" name="lng" value=""><font color="red">（小数点前有三位数）</font><br>
+    纬度：<input type="text" name="lat" value=""><font color="red">（小数点前有两位数）</font><br>
+    区域：<select name="region_id">
+                <option value="0">请选择</option>
+                <foreach name="res" item="vo" >
+                    <option value="{$vo.region_id}">{$vo.new_name}</option>
+                </foreach>
+            </select><br><br>
+    <input type="submit" value="修改">
+</form>
+
+<br>
+<a href="http://lbs.amap.com/console/show/picker" target="_blank">坐标查询</a>
+<br/>
+</body>
+</html>

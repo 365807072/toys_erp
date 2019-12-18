@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+    $(document).ready(function(){
+        $('.check_list a').click(function(){ 
+            $("#search_form").submit();
+        });
+    })
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 奖品订单列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="/Toys/pubtoysprize">添加奖品订单</a>
+<div style="margin:10px;margin-top:0px;"></p>
+<form id="search_form" method ='GET' action="http://checkpic.meimei.yihaoss.top/Toys/getorderprizelist" >
+        &nbsp;&nbsp;&nbsp;&nbsp;订单ID：<input type="text" name="order_id" value="{$order_id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;奖品状态：
+        <select name="order_status">
+            <option value="0" >选择状态</option>
+            <option value="2" <if condition="$order_status eq 2 "> selected</if>>准备中</option>
+            <option value="5" <if condition="$order_status eq 5 "> selected</if>>送货中</option>
+            <option value="11" <if condition="$order_status eq 11 "> selected</if>>已送达</option>
+        </select>
+         &nbsp;&nbsp;&nbsp;&nbsp;奖品ID：<input type="text" name="business_id" value="{$business_id}">
+         用户ID：<input type="text" name="user_id" value="{$user_id}">
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='搜索'>
+   </form>
+</div>
+
+
+
+<div class="check_list">{$page}</div>
+<table width = "100%"  border="1">
+	<tr height = "10" >
+        <th width = "10%" align = "center">订单Id/订单号/订单批号</th>
+        <th width = "10%" align = "center">用户信息</th>
+		<th width = "10%" align = "center">奖品ID/奖品标题</th>
+		<th width = "10%" align = "center">图片</th>
+        <th width = "5%" align = "center">奖品状态</th>
+        <th width = "5%" align = "center">修改/创建时间</th>
+        <th width = "5%" align = "center">操作</th>
+    </tr>
+    <foreach name="res" item="vo" >
+        <tr>
+            <td width ='10%' align = "center">{$vo.order_info}</td>
+            <td width ='10%'  align = "center">{$vo.user_info}</td>
+            <td width ='10%'  align = "center">{$vo.prize_info}</td>
+			<td width ='10%' align = "center">
+                <img src="{$vo.img}" style="width:120px;height:120px;">
+            </td>
+            <td width ='5%' align = "center">{$vo.status_name}</td>
+            <td width ='5%' align = "center">{$vo.show_time}</td>
+            <td width ='5%' height='200' align = "center">
+                <a href="http://checkpic.meimei.yihaoss.top/Toys/operator_prizeorderstate?imgid={$vo.id}" >删除</a>
+            </td>
+        </tr>    
+    </foreach>
+</table>
+<br/>
+<br/>
+<div class="check_list">{$page}</div>
+</body>
+</html>

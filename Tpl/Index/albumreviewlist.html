@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{:C('TITLE')}</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+
+<style>
+th{
+	font-size:15px;
+}
+
+
+</style>
+
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 秀秀评论列表   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<div class="check_list">{$page}</div>
+<table width = "100%" cellpadding = '3' cellspacing = '3'>
+	<tr height = "10"  >
+		<th width = "5%" align = "center">评论ID</th>
+		<th width = "10%" align = "center">评论人ID</th>
+		<th width = "20%" align = "center">评论内容</th>
+		<th width = "5%" align = "center">删除</th>
+    </tr>
+    <foreach name="res" item="vo" >
+    <tr>
+    	<td width ='5%' align = "center">{$vo.id}</td>
+        <td width ='10%' align = "center">{$vo.user_id}<br/>{$vo.nick_name}</td>
+		<td width ='10%' align = "center">{$vo.demand|msubstr=0,40,'utf-8'}</td>
+		<td width ='10%' align = "center"><a href="http://checkpic.meimei.yihaoss.top/index.php/Index/operator_albumreviewstate?id={$vo.id}">删除</a>
+		</td>
+    </tr>
+    </foreach>
+</table>
+<br/>
+<div class="check_list">{$page}</div>
+
+</body>
+</html>

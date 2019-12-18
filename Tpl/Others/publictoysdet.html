@@ -1,0 +1,127 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>发布玩具</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 发布玩具</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/PublicToysBus">
+		
+	租卖方式：
+        <input type="radio" name="way" value="0"   >售卖&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="way" value="1" checked >租赁
+        <br>
+    卡类型：
+        <input type="radio" name="is_card" value="0"  checked >无&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="1"  >月卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="2"  >季卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="3"  >半年卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="4"  >一年卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="5"  >周卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="6"  >升级卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_card" value="7"  >服务卡
+        <br>
+    服务卡服务次数：<input type="text" name="service_number" value="" ><br/>
+    活动状态：
+        <input type="radio" name="is_active" value="0"  checked >不是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_active" value="1"  >是<br>
+    押金价格：<input type="text" name="need_price" value="" ><br/>
+    售卖价格：<input type="text" name="sell_price1" value="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    售卖市场价格：<input type="text" name="market_price1" value="" ><br/>
+    
+    租赁价格：<input type="text" name="sell_price2" value="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    最高赔付价格：<input type="text" name="highest_price" value="" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    租赁市场价格：<input type="text" name="market_price2" value="" >
+    <br/>
+    服务费：<input type="text" name="service_price" value="" >（如果不填默认15元）<br/>
+    可用玩具数量：<input type="text" name="number" value="" ><br/>
+    总共玩具数量：<input type="text" name="total_number" value="" ><br/>
+    数量备注：<textarea name="number_title" value="" cols="100" rows="2"></textarea><br>
+
+	玩具主体：<textarea name="main_part" value="" cols="100" rows="2"></textarea><br>
+	玩具配件：<textarea name="parts" value="" cols="100" rows="2"></textarea><br>
+	玩具重量：<input type="text" name="weight" value="" ><br/>
+	玩具尺寸：<input type="text" name="size" value="" ><br/>
+	玩具颜色：<input type="text" name="color" value="" ><br/>
+	1号电池：<input type="text" name="battery_number1" value="" ><br/>
+	2号电池：<input type="text" name="battery_number2" value="" ><br/>
+	3号电池：<input type="text" name="battery_number3" value="" ><br/>
+	4号电池：<input type="text" name="battery_number4" value="" ><br/>
+	5号电池：<input type="text" name="battery_number5" value="" ><br/>
+	6号电池：<input type="text" name="battery_number6" value="" ><br/>
+	7号电池：<input type="text" name="battery_number7" value="" ><br/>
+	纽扣电池：<input type="text" name="battery_number8" value="" ><br/>
+
+	豌豆苗支持状态：
+        <input type="radio" name="is_support" value="0"   >否&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="is_support" value="1" checked>是
+        <br>
+    分类： <volist name="cate_info" id="vo"  >   
+            <input type="checkbox" name="category[]" value="{$vo.category_id}"  >{$vo.title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        </volist><br/>
+
+    编号：<input type="text" name="contract_number" value="" ><br/>
+
+    标题：<textarea name="business_title" value="" cols="100" rows="2"></textarea><br>
+	适龄儿童：<textarea name="age" value="" cols="100" rows="2"></textarea><br>
+	联系电话：<textarea name="business_contact" value="" cols="100" rows="2"></textarea><br>
+	QQ：<textarea name="qq" value="" cols="100" rows="2"></textarea><br>
+	地址：<textarea name="business_location" value="" cols="100" rows="2"></textarea><br>
+	其他备注：<textarea name="remark" value="" cols="100" rows="2"></textarea><br>
+	封面图：<input type="file" name="cover" value=""><br>
+    <div class="div_box">
+	 	话题一描述:<textarea name="img_desc" value="" cols="100" rows="5"></textarea><br>
+		话题一图片1：<input type="file" name="img1" value=""><br>
+		话题一图片2：<input type="file" name="img2" value=""><br>
+		话题一图片3：<input type="file" name="img3" value=""><br>
+		话题一图片4：<input type="file" name="img4" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题二描述:<textarea name="img_desc2" value="" cols="100" rows="5"></textarea><br>
+		话题二图片1：<input type="file" name="img5" value=""><br>
+		话题二图片2：<input type="file" name="img6" value=""><br>
+		话题二图片3：<input type="file" name="img7" value=""><br>
+		话题二图片4：<input type="file" name="img8" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题三描述:<textarea name="img_desc3" value="" cols="100" rows="5"></textarea><br>
+		话题三图片1：<input type="file" name="img9" value=""><br>
+		话题三图片2：<input type="file" name="img10" value=""><br>
+		话题三图片3：<input type="file" name="img11" value=""><br>
+		话题三图片4：<input type="file" name="img12" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题四描述:<textarea name="img_desc4" value="" cols="100" rows="5"></textarea><br>
+		话题四图片1：<input type="file" name="img13" value=""><br>
+		话题四图片2：<input type="file" name="img14" value=""><br>
+		话题四图片3：<input type="file" name="img15" value=""><br>
+		话题四图片4：<input type="file" name="img16" value=""><br>
+	</div>
+	<div class="div_box">
+	 	话题五描述:<textarea name="img_desc5" value="" cols="100" rows="5"></textarea><br>
+		话题五图片1：<input type="file" name="img17" value=""><br>
+		话题五图片2：<input type="file" name="img18" value=""><br>
+		话题五图片3：<input type="file" name="img19" value=""><br>
+		话题五图片4：<input type="file" name="img20" value=""><br>
+	</div>
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

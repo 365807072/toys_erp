@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>添加玩具奖品</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){ 
+ 	var is_card=$('input:radio[name="is_card"]:checked').val();
+	$("#prize_info").show();
+	$("#card_list").hide();
+
+	$('.card_info').change(function(){ 
+		var up_is_card=$('input:radio[name="is_card"]:checked').val();
+		if(up_is_card==1) {
+			$("#card_list").show();
+			$("#prize_info").hide();
+		} else {
+			$("#prize_info").show();
+			$("#card_list").hide();
+		}	
+	}) 
+}) 
+</script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 添加玩具奖品 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/addToysPrize">
+		奖品状态：<input type="radio" name="is_card" value="0" class="card_info" checked="checked" >奖品
+        <input type="radio" name="is_card" value="1" class="card_info" >卡<br>
+		一级奖品标题[选择]：
+		<select name="prize_id1">
+			<option value="0">请选择奖品</option>
+			<foreach name="businessList" item="vo" >
+				<option value="{$vo.prize_id1}">{$vo.prize_title1}</option>
+			</foreach>
+		</select><br>
+		一级奖品标题[新增]：<textarea name="prize_title1" value="" cols="100" rows="2"></textarea><br>
+		<div id="prize_info">
+			数量:<input type="text" name="number" value="" ><br>
+			描述：<textarea name="description" value="" cols="100" rows="2"></textarea><br>
+		</div>
+		<div id="card_list">
+			二级奖品标题[新增]：<textarea name="prize_title2" value="" cols="100" rows="2"></textarea><br>
+			卡状态：<input type="radio" name="card_status" value="0" checked="checked" >加一张周卡
+        	<input type="radio" name="card_status" value="1" >延长天数
+        	<input type="radio" name="card_status" value="2" >延长次数
+        	<input type="radio" name="card_status" value="3" >延长天数和次数
+        	<br>
+        	延长天数:<input type="text" name="card_day" value="" ><br>
+        	延长次数:<input type="text" name="card_service" value="" ><br>
+		</div>
+		图片：<input type="file" name="img" value=""><br>
+	   	<input type='submit' value='发布'>
+		<input type='reset' value='重置'>
+   </form>
+</table>
+<br/>
+</body>
+</html>

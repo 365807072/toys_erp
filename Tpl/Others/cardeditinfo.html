@@ -1,0 +1,168 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+ul{
+	width:100%;
+	display: -webkit-box;
+}
+	ul li{
+		width:150px;
+		list-style: none;
+		border-right:1px solid #8c8c8c;
+		border-bottom:1px solid #8c8c8c;
+	}
+
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){
+	 window.onscroll=function(){
+		 var sl=-Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+		 document.getElementById('head').style.left=sl+'px';
+
+	 };
+}) 
+</script>
+
+
+</head>
+
+<body  class = "mainBody" id="mainBody">
+<div style="position:fixed; left:0px; top:0px; z-index:1; width:150%;" id="head">
+	<p class='tablestyle_title' style="width:150%;">
+		会员卡信息编辑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="/Others/webPuToysOrder">添加卡订单</a>
+	</p>
+	<form action="cardeditinfo" method="get">
+		&nbsp;&nbsp;&nbsp;<input type="text" name="user_id" value="{$user_id}" placeholder="请输入用户ID">
+		&nbsp;&nbsp;&nbsp;<input type="submit" value="确定">
+	</form>
+
+
+
+	<ul style="text-align:center;background-color:#6795B4;color:#fff;width:150%;">
+		<li>会员卡ID</li>
+		<li>用户ID</li>
+		<li>创建时间</li>
+		<li>修改时间</li>
+		<li>开始时间</li>
+		<li>结束时间</li>
+		<li>卡名</li>
+		<li>卡状态</li>
+		<li>卡天数</li>
+		<li>卡剩余天数</li>
+		<li>卡服务次数</li>
+		<!--<li>卡最终服务次数</li>-->
+		<li>已经服务次数</li>
+		<li>剩余次数</li>
+		<li>超出服务次数费用</li>
+		<li>备注</li>
+	</ul>
+
+
+</div>
+<ul style="height:78px;">
+	<li style="width:100%;"></li>
+</ul>
+	<foreach name="cardinfo1" item="card" >
+		<ul style="text-align:center;">
+			<li>{$card.id}</li>
+			<li>{$card.user_id}<br><a href="http://checkpic.meimei.yihaoss.top/Others/getonecardinfo?id={$card.id}">查看</a></li>
+			<li>{$card.create_time}</li>
+			<li>{$card.post_create_time}</li>
+			<li>{$card.start_time}</li>
+			<li>{$card.end_time_now}</li>
+			<!--<li>{$card.final_end_time}</li>-->
+			<li>{$card.card_name}</li>
+			<li>{$card.status}</li>
+			<li>{$card.card_day}</li>
+			<li>{$card.card_have}</li>
+			<!--<li>{$card.card_service_num}</li>-->
+			<li>{$card.card_service_final_num}</li>
+			<li>{$card.used_num}</li>
+			<li>{$card.end_num}</li>
+			<li>{$card.service_money}</li>
+			<li>{$card.remark}</li>
+		</ul>
+
+	</foreach>
+<!--http://api.meimei.yihaoss.top/index.php?r=BabyShowV7/cardMerge-->
+		<!--<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/WebEditCard" method="post" onsubmit="return func()">-->
+			<!--已启用卡：<input type="text" name="old_card_id" id="one" value="">&nbsp;&nbsp;&nbsp;-->
+			<!--未启用卡：<input type="text" name="new_card_id" id="two" value="" >&nbsp;&nbsp;&nbsp;-->
+			<!--<input type="hidden" name="login_user_id" value="{$user_id}">-->
+			<!--<input type="submit" value="确认合并">-->
+		<!--</form>-->
+		<hr>
+	<foreach name="cardinfo" item="card">
+		<br>
+		<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV7/cardEditing" method="post" onsubmit="return fun('{$card.id}')">
+
+			会员卡ID：<input type="text" value="{$card.id}" disabled><input type="hidden" value="{$card.id}" name="id">&nbsp;&nbsp;&nbsp;
+			用户ID：<input type="text" value="{$card.user_id}" disabled><br>
+			开始时间：<input type="text" value="{$card.start_time}" disabled>&nbsp;&nbsp;&nbsp;
+			结束时间：<input type="text" value="{$card.end_time}" disabled>&nbsp;&nbsp;&nbsp;
+			最终结束时间：<input type="text" value="{$card.final_end_time}" disabled><br>
+			卡名：<input type="text" value="{$card.card_name}" disabled>&nbsp;&nbsp;&nbsp;
+			卡天数：<input type="text" value="{$card.card_day}" disabled><br>
+			卡服务次数：<input type="text" value="{$card.card_service_num}" disabled>&nbsp;&nbsp;&nbsp;
+			卡最终服务次数：<input type="text" value="{$card.card_service_final_num}" disabled><br><br>
+			延期天数（单位/天）：<input type="text" name="day_num" value="" id="day{$card.id}"><br>
+			增加配送次数（单位/次）：<input type="text" name="time_num" value="" id="time{$card.id}"><br>
+			操作备注：<input type="text" name="remark" value="" ><br>
+			<input type="submit" value="确认修改">
+
+		</form>
+		<br>
+		<hr>
+	</foreach>
+<script>
+	function fun(e){
+		var day = $("#day"+e).val();
+		var time = $("#time"+e).val();
+
+		if(day=='' && time==''){
+			alert("请至少输入一条您要修改的数据");
+			return false;
+		}
+
+		if(confirm("确定修改吗？")){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
+	function func(){
+		var one = $("#one").val();
+		var two = $("#two").val();
+
+		if(one=='' || two==''){
+			alert("请输入您要合并的会员卡ID");
+			return false;
+		}
+
+		if(confirm("确定修改吗？")){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
+</script>
+</body>
+</html>

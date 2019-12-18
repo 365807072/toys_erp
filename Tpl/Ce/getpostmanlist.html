@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<link href="/Tpl/Public/css/css.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="/Tpl/Public/js/jquery-ui-timepicker-zh-CN.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+</head>
+<body  class = "mainBody">
+<p class='tablestyle_title'><a href="http://checkpic.meimei.yihaoss.top/Ce/getoutbusinessinfo?start_time={$start_time}&end_time={$end_time} " >返回</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {$status_name}列表</p>
+<table width = "100%"  border="1">
+    <if condition="$order_status eq 4">
+        <tr height = "10" >
+            <th width = "5%" align = "center">玩具id</th>
+            <th width = "10%" align = "center">玩具标题</th>
+            <th width = "10%" align = "center">新上架数量</th>
+            <th width = "10%" align = "center">时间</th>
+        </tr>
+        <foreach name="toys_res" item="vo" >
+            <tr>
+                <td width ='5%' align = "center">{$vo.business_id}</td>
+                <td width ='10%' align = "center">{$vo.business_title}</td>
+                <td width ='10%' align = "center">{$vo.toys_count}</td>
+                <td width ='10%' align = "center">{$vo.show_time}</td>
+            </tr>    
+        </foreach>
+
+        <else/>
+        <tr height = "10" >
+            <th width = "10%" align = "center">操作人</th>
+            <th width = "10%" align = "center">订单数量</th>
+            <th width = "10%" align = "center">用户数量</th>
+            <th width = "10%" align = "center">时间</th>
+        </tr>
+        <foreach name="res" item="vo" >
+            <tr>
+                <td width ='5%' align = "center">{$vo.real_name}</td>
+                <td width ='10%' align = "center">{$vo.order_count}</td>
+                <td width ='10%' align = "center">{$vo.user_count}</td>
+                <td width ='10%' align = "center">{$vo.show_time}</td>
+            </tr>    
+        </foreach>
+    </if>
+
+
+	
+</table>
+<br/>
+<br/>
+</body>
+</html>

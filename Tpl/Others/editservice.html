@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){
+	 window.onscroll=function(){
+		 var sl=-Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+		 document.getElementById('head').style.left=sl+'px';
+
+	 };
+}) 
+</script>
+
+
+</head>
+
+<body  class = "mainBody" id="mainBody">
+<div style="position:fixed; left:0px; top:0px; z-index:1; width:150%;" id="head">
+	<p class='tablestyle_title' style="width:150%;">
+		退款编辑页面（逾期、玩具损坏）
+	</p>
+	<form action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV77/editservice" method="post" onsubmit="return confirm('确定提交吗?')">
+		&nbsp;&nbsp;&nbsp;请选择要操作的内容: &nbsp;<input type="radio" value="1" name="info" checked>逾期  &nbsp;&nbsp;&nbsp;
+		<input type="radio" name="info" value="2">玩具损坏<br>
+		&nbsp;&nbsp;&nbsp;请输入用户ID:<input type="text" name="user_id" value=""><br>
+		&nbsp;&nbsp;&nbsp;请输入订单ID:<input type="text" name="order_id" value=""><br>
+		&nbsp;&nbsp;&nbsp;请输入操作金额:<input type="text" name="money" value=""><br>
+		&nbsp;&nbsp;&nbsp;备注:<input type="text" name="remark" value=""><br>
+		&nbsp;&nbsp;&nbsp;<input type="submit" value="确定">
+	</form>
+
+
+</div>
+
+
+
+<script>
+
+
+
+</script>
+</body>
+</html>

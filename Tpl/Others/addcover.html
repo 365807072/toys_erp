@@ -1,0 +1,80 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>宝宝秀秀--添加今日头条</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+
+<style>
+th{
+	font-size:15px;
+}
+
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){ 
+	$('#is_group').change(function(){ 
+		var is_group=$(this).children('option:selected').val(); 
+		if(is_group=='2') {
+			$("#business").show();
+			$("#group").hide();
+		} else if(is_group=='1') {
+			$("#group").show();
+			$("#business").hide();
+		} else {
+			$("#business").hide();
+			$("#group").hide();
+		}
+	
+	}) 
+}) 
+</script>
+</head>
+
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 添加今日头条 </p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/AddListingCover">
+	<!-- 是否线上：<select name = "online"  >
+		  <option value ="0" selected>线上</option>
+		  <option value ="1">测试</option>
+	</select><br> -->
+	来源：<select name="is_group" id="is_group" style=" width:auto;">
+            <option value="0">帖子</option>
+            <option value="1">群</option>
+            <option value="2">商家</option>
+        </select><br/>
+        <p style="display:none;" id="group">群：
+        <select name="group_id">
+         	<option value="0">请选择群</option>
+            <foreach name="groupList" item="vo" >
+                <option value="{$vo.id}">{$vo.group_name}</option>
+            </foreach>
+        </select></p>
+        <p style="display:none;" id="business">商家：
+        <select name="business_id">
+        	<option value="0">请选择商家</option>
+            <foreach name="businessList" item="vo" >
+                <option value="{$vo.id}">{$vo.business_title}</option>
+            </foreach>
+        </select></p>
+	要添加的头条ID：<input type="text" name="img_id" value="{$id}" readonly><br>
+	头条发布人的ID：<input type="text" name="user_id" value="{$user_id}" readonly><br>
+	头条图片：<input type="file" name="img1" value=""><br>
+	头条描述：<!-- <input type="text" name="post_title" value=""><br> -->
+	<textarea name="post_title" value="" cols="100" rows="2"></textarea><br>
+	
+   	<input type='submit' value='添加'>
+	<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

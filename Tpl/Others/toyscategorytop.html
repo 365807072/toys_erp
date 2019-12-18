@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+  <link type="text/css" href="/Tpl/Public/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+     <link type="text/css" href="/Tpl/Public/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+<style>
+th{
+	font-size:15px;
+}
+</style>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+ $(document).ready(function(){  
+}) 
+</script>
+</head>
+
+<body  class = "mainBody">
+<p class='tablestyle_title'> 
+	<if condition="$res.id eq 0 ">添加<else/>编辑</if>玩具一级分类 
+</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/edittoysCategoryTop">
+	一级分类：<select name="class_id" >
+        <option value="1" <if condition="$res.id eq 1 "> selected </if > >年龄</option>
+        <option value="2"  <if condition="$res.id eq 2 "> selected </if > >热门</option>
+        <option value="3"  <if condition="$res.id eq 3 "> selected </if > >功能</option>
+    </select><br>
+	标题：<textarea name="title" value="" cols="100" rows="2">{$res.title}</textarea><br>
+	二级分类：<volist name="category_info" id="vo"  >   
+            <input type="radio" name="category_id2" value="{$vo.id}" <if condition="$res.category_id2 eq $vo.id "> checked</if >  >{$vo.title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </volist>
+        <br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="category_id3" value="{$res.category_id3}" >[分类里没有的话就写1000以上]<br>
+	<input type="hidden" name="id" value="{$res.id}"><br>
+   	<input type='submit' value='添加'>
+	<input type='reset' value='重置'>
+   </form>
+</table>
+</body>
+</html>

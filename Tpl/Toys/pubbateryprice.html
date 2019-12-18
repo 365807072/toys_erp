@@ -1,0 +1,48 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>电池价格</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 电池价格</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/pubbateryprice">
+	电池类型：
+        <select name="type">
+            <option value='1' <if condition="$res.type eq 1 "> selected</if> >1号电池</option>
+            <option value='2' <if condition="$res.type eq 2 "> selected</if> >2号电池</option>
+            <option value='3' <if condition="$res.type eq 3 "> selected</if> >3号电池</option>
+            <option value='4' <if condition="$res.type eq 4 "> selected</if> >4号电池</option>
+            <option value='5' <if condition="$res.type eq 5 "> selected</if> >5号电池</option>
+            <option value='6' <if condition="$res.type eq 6 "> selected</if> >6号电池</option>
+            <option value='7' <if condition="$res.type eq 7 "> selected</if> >7号电池</option>
+            <option value='8' <if condition="$res.type eq 8 "> selected</if> >纽扣电池</option>
+        </select>	<br>
+	电池品牌：
+        <input type="radio" name="brand" value="1" <if condition="$res.brand eq 1 "> checked</if> >华太&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="brand" value="2" <if condition="$res.brand eq 2 "> checked</if> >南孚&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="brand" value="3" <if condition="$res.brand eq 3 "> checked</if> >双鹿
+        <br>
+    零售价：<input type="text" name="price" value="{$res.price}" ><br/>
+    采购价：<input type="text" name="market_price" value="{$res.market_price}" ><br/>
+    <input type="hidden" name="id" value="{$res.id}" >
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='发布'>
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type='reset' value='重置'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>

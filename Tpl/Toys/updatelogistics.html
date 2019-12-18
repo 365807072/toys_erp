@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>编辑物流</title>
+
+<link href = '/Tpl/Public/css/css.css' rel = 'stylesheet' type = 'text/css'  />
+<style>
+th{font-size:15px;}
+.div_box{margin-top:10px;width:1000px;min-height:300px;max-height: 400px;border-bottom:1px dashed #111;}
+</style>
+
+</head>
+<script src="/Tpl/Public/js/jquery-1.10.2.min.js"></script>
+<script language = "JavaScript" type = "text/javascript">
+</script>
+<body  class = "mainBody">
+<p class='tablestyle_title'> 编辑物流</p>
+
+<table cellpadding='5' cellspacing='10' width = "100%">
+	<form enctype="multipart/form-data" method ='POST'  action="http://api.meimei.yihaoss.top/index.php?r=BabyShowV20/PublicToysBus">
+	玩具标题：{$res.business_title}
+	图片：<img src="{$res.img}" style="width:300px;height:300px;" >
+	配送员：<selct name="toys_number">
+		<notempty name="userInfo">
+			<foreach name="userInfo" item="vo" >
+				<option value="{$vo.id}"  >{$vo.nick_name}</option>
+			</foreach>
+		</notempty>
+	</selct>
+	玩具编号：<selct name="toys_number">
+		<notempty name="getBusListing">
+			<foreach name="getBusListing" item="vo" >
+				<option value="{$vo.id}" <if condition="$res['toys_number'] eq $vo['id']">selected</if> >{$vo.listing_name}</option>
+			</foreach>
+		</notempty>
+	</selct>
+	
+	<input type="hidden" name="order_id" value="{$res.id}">
+   	&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit' value='编辑'>
+   </form>
+
+</table>
+<br/>
+</body>
+</html>
